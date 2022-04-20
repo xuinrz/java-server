@@ -4,6 +4,8 @@ uims:
       title: 学生管理
     - name: score
       title: 成绩管理
+    - name: honor
+      title: 荣誉管理
   page:
     - name: student
       type: table
@@ -30,6 +32,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+#            - name: detail
             - name: course
               label: 我的课程
       query:
@@ -98,3 +101,70 @@ uims:
         - type: input
           prop: mark
           label: 成绩
+
+    - name: honor
+      type: table
+      title: 荣誉管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: honorLevel
+          label: 荣誉等级
+        - type: text
+          prop: honorName
+          label: 荣誉名称
+        - type: text
+          prop: honorDate
+          label: 获奖时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+      query:
+        - type: input
+          prop: studentName
+          label: 请输入姓名
+        - type: select
+          prop: level
+          label: 选择获奖等级
+          option:
+            - value: 1
+              label: 国家级
+            - value: 2
+              label: 省级
+            - value: 3
+              label: 校级
+    - name: honorEdit
+      type: form
+      title: 荣誉信息
+      item:
+        - type: input
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: select
+          prop: honorLevel
+          label: 获奖等级
+          option:
+            - value: 1
+              label: 国家级
+            - value: 2
+              label: 省级
+            - value: 3
+              label: 校级
+        - type: input
+          prop: honorName
+          label: 奖励名称
+        - type: date
+          prop: honorDate
+          label: 获奖时间
+
