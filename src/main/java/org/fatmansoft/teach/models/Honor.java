@@ -17,7 +17,6 @@ public class Honor {
     @JoinColumn(name = "StudentId")
     private Student student;
 
-    @Size(max = 2)
     private String honorLevel;
     private String honorName;
     private Date honorDate;

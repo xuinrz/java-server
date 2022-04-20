@@ -13,10 +13,10 @@ public interface HonorRepository extends JpaRepository<Honor, Integer> {
     @Query("select max(id) from Honor")
     Integer getMaxId();
 
-    List<Honor> findByStudentId(Integer studentId);
+    @Query(value = " from Honor h where (?1='' or (h.student.studentNum like %?1%) or (h.student.studentName like %?1%)) and h.honorLevel like %?2%")
+    List<Honor> findByNumNameLevel(String numName,String level);
 
-    @Query("from Honor order by student.id")
-    List<Honor> findAll1();
+
 
 
 

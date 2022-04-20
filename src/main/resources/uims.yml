@@ -129,41 +129,40 @@ uims:
             - name: delete
       query:
         - type: input
-          prop: studentName
-          label: 请输入姓名
+          prop: numName
+          label: 请输入姓名或学号
         - type: select
           prop: level
-          label: 选择获奖等级
+          label: 选择荣誉等级
           option:
-            - value: 1
+            - value: 级
+              label: 不限
+            - value: 国家级
               label: 国家级
-            - value: 2
+            - value: 省级
               label: 省级
-            - value: 3
+            - value: 校级
               label: 校级
     - name: honorEdit
       type: form
       title: 荣誉信息
       item:
-        - type: input
-          prop: studentNum
-          label: 学号
-        - type: text
-          prop: studentName
-          label: 姓名
+        - type: select
+          prop: studentId
+          label: 学生
         - type: select
           prop: honorLevel
-          label: 获奖等级
+          label: 荣誉等级
           option:
-            - value: 1
+            - value: 国家级
               label: 国家级
-            - value: 2
+            - value: 省级
               label: 省级
-            - value: 3
+            - value: 校级
               label: 校级
         - type: input
           prop: honorName
-          label: 奖励名称
+          label: 荣誉名称
         - type: date
           prop: honorDate
           label: 获奖时间
