@@ -6,6 +6,8 @@ uims:
       title: 成绩管理
     - name: honor
       title: 荣誉管理
+    - name: practice
+      title: 创新实践管理
   page:
     - name: student
       type: table
@@ -167,3 +169,77 @@ uims:
           prop: honorDate
           label: 获奖时间
 
+    - name: practice
+      type: table
+      title: 创新实践管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: pType
+          label: 实践类型
+        - type: text
+          prop: pName
+          label: 实践名称
+        - type: text
+          prop: pTeacher
+          label: 指导教师
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+      query:
+        - type: input
+          prop: numName
+          label: 请输入姓名或学号
+        - type: select
+          prop: type
+          label: 选择实践类型
+          option:
+            - value: 社会实践
+              label: 社会实践
+            - value: 学科竞赛
+              label: 学科竞赛
+            - value: 科技成果
+              label: 科技成果
+            - value: 培训讲座
+              label: 培训讲座
+            - value: 创新项目
+              label: 创新项目
+            - value: 校外实习
+              label: 校外实习
+    - name: practiceEdit
+      type: form
+      title: 创新实践信息
+      item:
+        - type: select
+          prop: studentId
+          label: 学生
+        - type: select
+          prop: pType
+          label: 实践类型
+          option:
+            - value: 社会实践
+              label: 社会实践
+            - value: 学科竞赛
+              label: 学科竞赛
+            - value: 科技成果
+              label: 科技成果
+            - value: 培训讲座
+              label: 培训讲座
+            - value: 创新项目
+              label: 创新项目
+            - value: 校外实习
+              label: 校外实习
+        - type: input
+          prop: pName
+          label: 实践名称
+        - type: input
+          prop: pTeacher
+          label: 实践时间

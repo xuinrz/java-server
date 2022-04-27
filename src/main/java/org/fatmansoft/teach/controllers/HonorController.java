@@ -5,6 +5,7 @@ import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.HonorRepository;
+import org.fatmansoft.teach.repository.PracticeRepository;
 import org.fatmansoft.teach.repository.ScoreRepository;
 import org.fatmansoft.teach.repository.StudentRepository;
 import org.fatmansoft.teach.util.CommonMethod;
@@ -24,8 +25,7 @@ public class HonorController {
     private HonorRepository honorRepository;
     @Autowired
     private StudentRepository studentRepository;
-    @Autowired
-    private ScoreRepository scoreRepository;
+
 
     public List getHonorMapList(String numName) {
         List dataList = new ArrayList();
@@ -132,7 +132,7 @@ public class HonorController {
         else
             id = id+1;
         return id;
-    };
+    }
     @PostMapping("/honorEditSubmit")
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse honorEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
