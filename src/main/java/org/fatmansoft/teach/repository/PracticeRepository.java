@@ -15,9 +15,4 @@ public interface PracticeRepository extends JpaRepository<Practice, Integer> {
 
     @Query(value = " from Practice p where (?1='' or (p.student.studentNum like %?1%) or (p.student.studentName like %?1%)) and (p.pType like %?2% or ?2='')")
     List<Practice> findByNumNameType(String numName,String type);
-
-
-
-
-
 }

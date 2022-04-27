@@ -60,35 +60,28 @@ public class TeachController {
     public List getStudentMapList(String numName) {
         List dataList = new ArrayList();
         List<Student> sList = studentRepository.findStudentListByNumName(numName);  //数据库查询操作
-        if (sList == null || sList.size() == 0)
+        if(sList == null || sList.size() == 0)
             return dataList;
         Student s;
         Map m;
-        String courseParas, studentNameParas;
-        for (int i = 0; i < sList.size(); i++) {
+        for(int i = 0; i < sList.size();i++) {
             s = sList.get(i);
             m = new HashMap();
             m.put("id", s.getId());
-            m.put("studentNum", s.getStudentNum());
-            studentNameParas = "model=introduce&studentId=" + s.getId();
-            m.put("studentName", s.getStudentName());
-            m.put("studentNameParas", studentNameParas);
-            if ("1".equals(s.getSex())) {    //数据库存的是编码，显示是名称
-                m.put("sex", "男");
-            } else {
-                m.put("sex", "女");
+            m.put("studentNum",s.getStudentNum());
+            m.put("studentName",s.getStudentName());
+            if("男".equals(s.getSex())) {    //数据库存的是编码，显示是名称
+                m.put("sex","男");
+            }else {
+                m.put("sex","女");
             }
-            m.put("age", s.getAge());
-            m.put("dept", s.getDept());
-            m.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(), "yyyy-MM-dd"));  //时间格式转换字符串
-            courseParas = "model=course&studentId=" + s.getId();
-            m.put("course", "所学课程");
-            m.put("courseParas", courseParas);
+            m.put("age",s.getAge());
+            m.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(),"yyyy-MM-dd"));  //时间格式转换字符串
+            m.put("phone",s.getPhone());
             dataList.add(m);
         }
         return dataList;
     }
-
     //student页面初始化方法
     //Table界面初始是请求列表的数据，这里缺省查出所有学生的信息，传递字符“”给方法getStudentMapList，返回所有学生数据，
     @PostMapping("/studentInit")
@@ -97,35 +90,14 @@ public class TeachController {
         List dataList = getStudentMapList("");
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
-
     //student页面点击查询按钮请求
     //Table界面初始是请求列表的数据，从请求对象里获得前端界面输入的字符串，作为参数传递给方法getStudentMapList，返回所有学生数据，
     @PostMapping("/studentQuery")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentQuery(@Valid @RequestBody DataRequest dataRequest) {
-        String numName = dataRequest.getString("numName");
+        String numName= dataRequest.getString("numName");
         List dataList = getStudentMapList(numName);
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
-    }
-
-    //  学生信息删除方法
-    //Student页面的列表里点击删除按钮则可以删除已经存在的学生信息， 前端会将该记录的id 回传到后端，方法从参数获取id，查出相关记录，调用delete方法删除
-    @PostMapping("/studentDelete")
-    @PreAuthorize(" hasRole('ADMIN')")
-    public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest) {
-        Integer id = dataRequest.getInteger("id");  //获取id值
-        Student s = null;
-        Optional<Student> op;
-        if (id != null) {
-            op = studentRepository.findById(id);   //查询获得实体对象
-            if (op.isPresent()) {
-                s = op.get();
-            }
-        }
-        if (s != null) {
-            studentRepository.delete(s);    //数据库永久删除
-        }
-        return CommonMethod.getReturnMessageOK();  //通知前端操作正常
     }
 
     //studentEdit初始化方法
@@ -136,74 +108,145 @@ public class TeachController {
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
-        Student s = null;
+        Student s= null;
         Optional<Student> op;
-        if (id != null) {
-            op = studentRepository.findById(id);
-            if (op.isPresent()) {
+        if(id != null) {
+            op= studentRepository.findById(id);
+            if(op.isPresent()) {
                 s = op.get();
             }
         }
-        List sexList = new ArrayList();
-        Map m;
-//        m = new HashMap();
-//        m.put("label","男");
-//        m.put("value","1");
-//        sexList.add(m);
-//        m = new HashMap();
-//        m.put("label","女");
-//        m.put("value","2");
-//        sexList.add(m);
         Map form = new HashMap();
-        if (s != null) {
-            form.put("id", s.getId());
-            form.put("studentNum", s.getStudentNum());
-            form.put("studentName", s.getStudentName());
-            form.put("sex", s.getSex());  //这里不需要转换
-            form.put("age", s.getAge());
-            form.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(), "yyyy-MM-dd")); //这里需要转换为字符串
+        if(s != null) {
+            form.put("id",s.getId());
+            form.put("studentNum",s.getStudentNum());
+            form.put("studentName",s.getStudentName());
+            form.put("sex",s.getSex().equals("男")?"男":"女");  //这里不需要转换
+            form.put("age",s.getAge());
+            form.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(),"yyyy-MM-dd")); //这里需要转换为字符串
+            form.put("phone",s.getPhone());
+            form.put("formerSchool",s.getFormerSchool());
+            form.put("email",s.getEmail());
+            form.put("father",s.getFather());
+            form.put("mother",s.getMother());
+            if (s.getFace() != null) {
+                if (s.getFace().equals("群众")) {
+                    form.put("face", "群众");
+                } else if (s.getFace().equals("共青团员")) {
+                    form.put("face", "共青团员");
+                } else if (s.getFace().equals("党员")) {
+                    form.put("face", "党员");
+                } else {
+                    form.put("face", "");
+                }
+            }
+            if (s.getCombination() != null) {
+                switch (s.getCombination()) {
+                    case "地化生":
+                        form.put("combination", "地化生");
+                        break;
+                    case "地物化":
+                        form.put("combination", "地物化");
+                        break;
+                    case "地物生":
+                        form.put("combination", "地物生");
+                        break;
+                    case "史地化":
+                        form.put("combination", "史地化");
+                        break;
+                    case "史地生":
+                        form.put("combination", "史地生");
+                        break;
+                    case "史化生":
+                        form.put("combination", "史化生");
+                        break;
+                    case "史物化":
+                        form.put("combination", "史物化");
+                        break;
+                    case "史物生":
+                        form.put("combination", "史物生");
+                        break;
+                    case "物化生":
+                        form.put("combination", "物化生");
+                        break;
+                    case "政地物":
+                        form.put("combination", "政地物");
+                        break;
+                    case "政化生":
+                        form.put("combination", "政化生");
+                        break;
+                    case "政史地":
+                        form.put("combination", "政史地");
+                        break;
+                    case "政史化":
+                        form.put("combination", "政史化");
+                        break;
+                    case "政史生":
+                        form.put("combination", "政史生");
+                        break;
+                    case "政史物":
+                        form.put("combination", "政史物");
+                        break;
+                    case "政物化":
+                        form.put("combination", "政物化");
+                        break;
+                    case "政物生":
+                        form.put("combination", "政物生");
+                        break;
+                    case "史地物":
+                        form.put("combination", "史地物");
+                        break;
+                    case "政地生":
+                        form.put("combination", "政地生");
+                        break;
+                    case "20":
+                        form.put("combination", "政地物");
+                        break;
+                    default:
+                        form.put("combination", "");
+                }
+            }
+
+
         }
-        //       form.put("sexList",sexList);
         return CommonMethod.getReturnData(form); //这里回传包含学生信息的Map对象
     }
-
     //  学生信息提交按钮方法
     //相应提交请求的方法，前端把所有数据打包成一个Json对象作为参数传回后端，后端直接可以获得对应的Map对象form, 再从form里取出所有属性，复制到
     //实体对象里，保存到数据库里即可，如果是添加一条记录， id 为空，这是先 new Student 计算新的id， 复制相关属性，保存，如果是编辑原来的信息，
     //id 不为空。则查询出实体对象，复制相关属性，保存后修改数据库信息，永久修改
-    public synchronized Integer getNewStudentId() {
-        Integer
-                id = studentRepository.getMaxId();  // 查询最大的id
-        if (id == null)
-            id = 1;
-        else
-            id = id + 1;
-        return id;
-    }
-
-    ;
-
     @PostMapping("/studentEditSubmit")
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Map form = dataRequest.getMap("form"); //参数获取Map对象
-        Integer id = CommonMethod.getInteger(form, "id");
-        String studentNum = CommonMethod.getString(form, "studentNum");  //Map 获取属性的值
-        String studentName = CommonMethod.getString(form, "studentName");
-        String sex = CommonMethod.getString(form, "sex");
-        Integer age = CommonMethod.getInteger(form, "age");
-        Date birthday = CommonMethod.getDate(form, "birthday");
-        Student s = null;
+        Integer id = CommonMethod.getInteger(form,"id");
+        String studentNum = CommonMethod.getString(form,"studentNum");  //Map 获取属性的值
+        String studentName = CommonMethod.getString(form,"studentName");
+        String sex = CommonMethod.getString(form,"sex");
+        Integer age = CommonMethod.getInteger(form,"age");
+        Date birthday = CommonMethod.getDate(form,"birthday");
+        String phone = CommonMethod.getString(form,"phone");
+        String email = CommonMethod.getString(form,"email");
+        String formerSchool = CommonMethod.getString(form,"formerSchool");
+        String father = CommonMethod.getString(form,"father");
+        String mother = CommonMethod.getString(form,"mother");
+        String combination = CommonMethod.getString(form,"combination");
+        String face = CommonMethod.getString(form,"face");
+        Student s= null;
         Optional<Student> op;
-        if (id != null) {
-            op = studentRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
-            if (op.isPresent()) {
+        if(id != null) {
+            op= studentRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
+            if(op.isPresent()) {
                 s = op.get();
             }
         }
-        if (s == null) {
+        if(s == null) {
             s = new Student();   //不存在 创建实体对象
-            id = getNewStudentId(); //获取鑫的主键，这个是线程同步问题;
+            id = studentRepository.getMaxId();  // 查询最大的id
+            if(id == null)
+                id = 1;
+            else
+                id = id+1;
             s.setId(id);  //设置新的id
         }
         s.setStudentNum(studentNum);  //设置属性
@@ -211,8 +254,35 @@ public class TeachController {
         s.setSex(sex);
         s.setAge(age);
         s.setBirthday(birthday);
+        s.setPhone(phone);
+        s.setEmail(email);
+        s.setFormerSchool(formerSchool);
+        s.setFather(father);
+        s.setMother(mother);
+        s.setFace(face);
+        s.setCombination(combination);
         studentRepository.save(s);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(s.getId());  // 将记录的id返回前端
+    }
+
+    //  学生信息删除方法
+    //Student页面的列表里点击删除按钮则可以删除已经存在的学生信息， 前端会将该记录的id 回传到后端，方法从参数获取id，查出相关记录，调用delete方法删除
+    @PostMapping("/studentDelete")
+    @PreAuthorize(" hasRole('ADMIN')")
+    public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest) {
+        Integer id = dataRequest.getInteger("id");  //获取id值
+        Student s= null;
+        Optional<Student> op;
+        if(id != null) {
+            op= studentRepository.findById(id);   //查询获得实体对象
+            if(op.isPresent()) {
+                s = op.get();
+            }
+        }
+        if(s != null) {
+            studentRepository.delete(s);    //数据库永久删除
+        }
+        return CommonMethod.getReturnMessageOK();  //通知前端操作正常
     }
 
 

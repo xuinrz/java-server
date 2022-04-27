@@ -29,12 +29,15 @@ uims:
         - type: text
           prop: birthday
           label: 出生日期
+        - type: text
+          prop: phone
+          label: 电话
         - type: opers
           label: 操作
           opers:
             - name: edit
             - name: delete
-#            - name: detail
+            - name: detail
             - name: course
               label: 我的课程
       query:
@@ -47,24 +50,93 @@ uims:
       item:
         - type: input
           prop: studentNum
-          label: 学号
+          label: 学号(必填)
         - type: input
           prop: studentName
-          label: 姓名
+          label: 姓名(必填)
         - type: select
           prop: sex
-          label: 性别
+          label: 性别(必填)
           option:
-            - value: 1
+            - value: 男
               label: 男
-            - value: 2
+            - value: 女
               label: 女
         - type: input
           prop: age
-          label: 年龄
+          label: 年龄(必填)
         - type: date
           prop: birthday
-          label: 出生日期
+          label: 出生日期(必填)
+        - type: input
+          prop: phone
+          label: 电话(必填)
+        - type: input
+          prop: email
+          label: 电子邮箱
+        - type: input
+          prop: formerSchool
+          label: 毕业高中
+        - type: select
+          prop: combination
+          label: 高中选科
+          option:
+            - value: 地化生
+              label: 地化生
+            - value: 地物化
+              label: 地物化
+            - value: 地物生
+              label: 地物生
+            - value: 史地化
+              label: 史地化
+            - value: 史地生
+              label: 史地生
+            - value: 史化生
+              label: 史化生
+            - value: 史物化
+              label: 史物化
+            - value: 史物生
+              label: 史物生
+            - value: 物化生
+              label: 物化生
+            - value: 政地物
+              label: 政地物
+            - value: 政化生
+              label: 政化生
+            - value: 政史地
+              label: 政史地
+            - value: 政史化
+              label: 政史化
+            - value: 政史生
+              label: 政史生
+            - value: 政史物
+              label: 政史物
+            - value: 政物化
+              label: 政物化
+            - value: 政物生
+              label: 政物生
+            - value: 史地物
+              label: 史地物
+            - value: 政地生
+              label: 政地生
+            - value: 政地物
+              label: 政地物
+        - type: input
+          prop: father
+          label: 父亲
+        - type: input
+          prop: mother
+          label: 母亲
+        - type: select
+          prop: face
+          label: 政治面貌
+          option:
+            - value: 群众
+              label: 群众
+            - value: 共青团员
+              label: 共青团员
+            - value: 党员
+              label: 党员
     - name: score
       type: table
       title: 成绩管理

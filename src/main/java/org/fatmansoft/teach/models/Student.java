@@ -22,9 +22,70 @@ public class Student {
     @Size(max = 2)
     private String sex;
     private Integer age;
-    @Size(max = 50)
-    private String dept;
     private Date birthday;
+    private String phone;
+    private String email;
+    private String combination;
+    private String father;
+    private String mother;
+    private String face;
+    private String formerSchool;
+
+    public String getFormerSchool() {
+        return formerSchool;
+    }
+
+    public void setFormerSchool(String formerSchool) {
+        this.formerSchool = formerSchool;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCombination() {
+        return combination;
+    }
+
+    public void setCombination(String combination) {
+        this.combination = combination;
+    }
+
+    public String getFather() {
+        return father;
+    }
+
+    public void setFather(String father) {
+        this.father = father;
+    }
+
+    public String getMother() {
+        return mother;
+    }
+
+    public void setMother(String mother) {
+        this.mother = mother;
+    }
+
+    public String getFace() {
+        return face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
+    }
 
     public Integer getId() {
         return id;
@@ -72,13 +133,5 @@ public class Student {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
-    }
-
-    public String getDept() {
-        return dept;
-    }
-
-    public void setDept(String dept) {
-        this.dept = dept;
     }
 }
