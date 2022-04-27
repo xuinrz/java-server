@@ -90,6 +90,25 @@ uims:
           opers:
             - name: edit
             - name: delete
+      query:
+        - type: input
+          prop: numName
+          label: 请输入姓名或学号
+        - type: input
+          prop: courseName
+          label: 课程名
+        - type: select
+          prop: scoreOrder
+          label: 分数排序
+          option:
+            - value:
+              label: 不限
+            - value: 分数降序
+              label: 分数降序
+            - value: 分数升序
+              label: 分数升序
+            - value: 低于60分
+              label: 低于60分
     - name: scoreEdit
       type: form
       title: 学生信息
@@ -202,6 +221,8 @@ uims:
           prop: type
           label: 选择实践类型
           option:
+            - value:
+              label: 不限
             - value: 社会实践
               label: 社会实践
             - value: 学科竞赛
