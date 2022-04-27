@@ -2,12 +2,16 @@ uims:
   menu:
     - name: student
       title: 学生管理
+    - name: course
+      title: 学习管理
     - name: score
       title: 成绩管理
     - name: honor
       title: 荣誉管理
     - name: practice
       title: 创新实践管理
+    - name: daily
+      title: 日常管理
   page:
     - name: student
       type: table
@@ -333,3 +337,69 @@ uims:
         - type: input
           prop: pTeacher
           label: 实践时间
+
+    - name: daily
+      type: table
+      title: 日常管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: category
+          label: 类别
+        - type: text
+          prop: matters
+          label: 事项
+        - type: text
+          prop: dateTime
+          label: 时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: detail
+            - name: edit
+            - name: delete
+      query:
+        - type: input
+          prop: numName
+          label: 请输入学号或姓名
+        - type: select
+          prop: category
+          label: 请选择事项类别
+          option:
+            - value:
+              label: 不限
+            - value: 日常消费
+              label: 日常消费
+            - value: 外出申请
+              label: 外出申请
+            - value: 请假审批
+              label: 请假审批
+    - name: dailyEdit
+      type: form
+      title: 日常信息
+      item:
+        - type: select
+          prop: studentId
+          label: 学生
+        - type: select
+          prop: category
+          label: 类别
+          option:
+            - value: 日常消费
+              label: 日常消费
+            - value: 外出申请
+              label: 外出申请
+            - value: 请假审批
+              label: 请假审批
+        - type: date
+          prop: dateTime
+          label: 时间
+        - type: input
+          prop: matters
+          label: 事项信息
