@@ -1,7 +1,6 @@
 package org.fatmansoft.teach.repository;
 
 import org.fatmansoft.teach.models.Course;
-import org.fatmansoft.teach.models.Practice;
 import org.fatmansoft.teach.models.Score;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
