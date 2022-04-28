@@ -526,7 +526,7 @@ public class TeachController {
         List dataList = new ArrayList();
         //数据库查询操作
         List<Score> sList = scoreRepository.findByNumNameCourseName(numName, courseName);
-        System.out.println(sList);
+//        System.out.println(sList);
         if (scoreOrder != null&&scoreOrder!="") {
             if (scoreOrder.equals("分数降序")) {
                 sList = scoreRepository.findByNumNameCourseNameScoreDescend(numName, courseName);
