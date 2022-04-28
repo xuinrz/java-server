@@ -359,7 +359,7 @@ public class TeachController {
         content += "   </thead>";
         content += "   </table>";
 
-        content += "<table style='width: 100%;border-collapse: collapse;border: 1px solid black;'>";
+        content += "<table style='width: 100%;border-collapse: collapse;border: 10px solid red;'>";
         content += " <tbody>";
 
         for (int i = 0; i < attachList.size(); i++) {
@@ -567,7 +567,7 @@ public class TeachController {
         String scoreOrder = dataRequest.getString("scoreOrder");
         if(numName==null)numName="";
         if(courseName ==null)courseName = "";
-        if(scoreOrder ==null)scoreOrder = "级";
+        if(scoreOrder ==null)scoreOrder = "";
         List dataList = getStudentMapListForQuary(numName, courseName, scoreOrder);
         return CommonMethod.getReturnData(dataList);
     }
