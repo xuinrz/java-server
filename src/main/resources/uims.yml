@@ -51,13 +51,13 @@ uims:
       item:
         - type: input
           prop: studentNum
-          label: 学号(必填)
+          label: 学号
         - type: input
           prop: studentName
-          label: 姓名(必填)
+          label: 姓名
         - type: select
           prop: sex
-          label: 性别(必填)
+          label: 性别
           option:
             - value: 男
               label: 男
@@ -65,13 +65,13 @@ uims:
               label: 女
         - type: input
           prop: age
-          label: 年龄(必填)
+          label: 年龄
         - type: date
           prop: birthday
-          label: 出生日期(必填)
+          label: 出生日期
         - type: input
           prop: phone
-          label: 电话(必填)
+          label: 电话
         - type: input
           prop: email
           label: 电子邮箱
@@ -138,6 +138,96 @@ uims:
               label: 共青团员
             - value: 党员
               label: 党员
+
+
+    - name: course
+      type: table
+      title: 学习管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: courseNum
+          label: 课程号
+        - type: text
+          prop: courseName
+          label: 课程名
+        - type: text
+          prop: credit
+          label: 学分
+        - type: text
+          prop: type
+          label: 课程类型
+        - type: text
+          prop: teacher
+          label: 教师
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+            - name: detail
+      query:
+        - type: input
+          prop: numName
+          label: 请输入序号或名称
+        - type: select
+          prop: type
+          label: 课程类型
+          option:
+            - value:
+              label: 不限
+            - value: 必修
+              label: 必修
+            - value: 限选
+              label: 限选
+            - value: 通选
+              label: 通选
+        - type: select
+          prop: creditOrder
+          label: 学分排序
+          option:
+            - value:
+              label: 不限
+            - value: 学分降序
+              label: 学分降序
+            - value: 学分升序
+              label: 学分升序
+    - name: courseEdit
+      type: form
+      title: 学习信息
+      item:
+        - type: input
+          prop: courseNum
+          label: 课程号
+        - type: input
+          prop: courseName
+          label: 课程名
+        - type: input
+          prop: credit
+          label: 学分
+        - type: select
+          prop: type
+          label: 课程类型
+          option:
+            - value: 必修
+              label: 必修
+            - value: 限选
+              label: 限选
+            - value: 通选
+              label: 通选
+        - type: input
+          prop: teacher
+          label: 教师
+        - type: input
+          prop: time
+          label: 上课时间
+        - type: input
+          prop: place
+          label: 教室
+        - type: input
+          prop: hours
+          label: 课时
+
     - name: score
       type: table
       title: 成绩管理

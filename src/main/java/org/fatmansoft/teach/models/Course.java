@@ -19,9 +19,54 @@ public class Course {
 
     @Size(max = 50)
     private String courseName;
-    private Integer credit;
+    private Integer credit;//学分
     @Size(max = 50)
-    private String preCourse;
+    private String preCourse;//前置课程
+    private String teacher;
+    private String time;//上课时间
+    private String hours;//课时
+    private String type;//课程类型
+    private String place;//教室
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
 
     public Integer getId() {
         return id;
