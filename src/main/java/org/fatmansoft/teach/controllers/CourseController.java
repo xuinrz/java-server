@@ -30,16 +30,21 @@ public class CourseController {
             return dataList;
         Course course;
         Map m;
-//        String courseParas, studentNameParas;
+        String courseNameParas;
+        String attendInfParas;
         for (int i = 0; i < courseList.size(); i++) {
             course = courseList.get(i);
             m = new HashMap();
             m.put("id", course.getId());
             m.put("courseNum", course.getCourseNum());
+            courseNameParas="model=courseCenter&courseName="+course.getCourseName();
+            attendInfParas="model=attendInf&courseName="+course.getCourseName();
             m.put("courseName", course.getCourseName());
             m.put("credit", course.getCredit());
             m.put("teacher", course.getTeacher());
             m.put("type", course.getType());
+            m.put("courseNameParas",courseNameParas);
+            m.put("attendInfParas",attendInfParas);
             dataList.add(m);
         }
         return dataList;
@@ -152,7 +157,7 @@ public class CourseController {
     public List getCourseMapListForQuery(String numName, String type,String creditOrder) {
         List dataList = new ArrayList();
         //数据库查询操作
-        List<Course> courseList = courseRepository.findByNumNameType(numName, type);  
+        List<Course> courseList = courseRepository.findByNumNameType(numName, type);
         if (creditOrder != null&&creditOrder!="") {
             if (creditOrder.equals("学分降序")) {
                 courseList = courseRepository.findByNumNameTypeCreditDescend(numName, type);

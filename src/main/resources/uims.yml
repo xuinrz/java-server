@@ -139,7 +139,6 @@ uims:
             - value: 党员
               label: 党员
 
-
     - name: course
       type: table
       title: 学习管理
@@ -148,7 +147,7 @@ uims:
         - type: text
           prop: courseNum
           label: 课程号
-        - type: text
+        - type: link
           prop: courseName
           label: 课程名
         - type: text
@@ -160,6 +159,11 @@ uims:
         - type: text
           prop: teacher
           label: 教师
+        - type: opers
+          label: 考勤信息
+          opers:
+            - name: attendInf
+              label: 考勤信息
         - type: opers
           label: 操作
           opers:
@@ -493,3 +497,98 @@ uims:
         - type: input
           prop: matters
           label: 事项信息
+
+    - name: attendInf
+      type: table
+      title: 考勤信息
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 缺勤姓名
+        - type: text
+          prop: courseNum
+          label: 课程号
+        - type: text
+          prop: courseName
+          label: 课程名
+
+        - type: text
+          prop: reason
+          label: 缺勤原因
+        - type: opers
+          label: 操作
+          opers:
+            - name: detail
+            - name: edit
+            - name: delete
+      query:
+        - type: input
+          prop: numName
+          label: 请输入姓名
+    - name: attendInfEdit
+      type: form
+      title: 考勤信息2
+      item:
+
+        - type: select
+          prop: studentId
+          label: 缺勤姓名
+        - type: select
+          prop: courseId
+          label: 课程
+
+        - type: input
+          prop: reason
+          label: 缺勤原因
+
+    - name: courseCenter
+      type: table
+      title: 课程中心
+      showAdd: 1
+      item:
+        - type: text
+          prop: courseNum
+          label: 课序号
+        - type: text
+          prop: courseName
+          label: 课程名
+        - type: text
+          prop: textbook
+          label: 教材
+        - type: text
+          prop: courseWare
+          label: 课件
+        - type: text
+          prop: reference
+          label: 参考资料
+        - type: opers
+          label: 操作
+          opers:
+            - name: detail
+            - name: edit
+            - name: delete
+
+      query:
+        - type: input
+          prop: numName
+          label: 请输入课程名
+    - name: courseCenterEdit
+      type: form
+      title: 课程中心2
+      item:
+        - type: select
+          prop: courseId
+          label: 课程
+        - type: input
+          prop: textbook
+          label: 教材
+        - type: input
+          prop: courseWare
+          label: 课件
+        - type: input
+          prop: reference
+          label: 参考资料
