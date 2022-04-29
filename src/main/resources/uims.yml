@@ -34,6 +34,11 @@ uims:
           prop: phone
           label: 电话
         - type: opers
+          label: 我的课程
+          opers:
+            - name: course
+              label: 我的课程
+        - type: opers
           label: 操作
           opers:
             - name: edit
