@@ -34,6 +34,7 @@ public class CourseController {
         String attendInfParas;
         String scoreParas;
         String courseManagementParas;
+        String homeworkParas;
         for (int i = 0; i < courseList.size(); i++) {
             course = courseList.get(i);
             m = new HashMap();
@@ -43,6 +44,8 @@ public class CourseController {
             attendInfParas="model=attendInf&courseName="+course.getCourseName();
             scoreParas="model=score&courseName="+course.getCourseName();
             courseManagementParas="model=courseManagement&courseName="+course.getCourseName();
+            homeworkParas="model=homework&courseId="+course.getId();
+            m.put("homeworkParas",homeworkParas);
             m.put("scoreParas",scoreParas);
             m.put("courseName", course.getCourseName());
             m.put("credit", course.getCredit());
