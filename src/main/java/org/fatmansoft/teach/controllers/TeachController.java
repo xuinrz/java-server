@@ -65,8 +65,10 @@ public class TeachController {
             return dataList;
         Student s;
         Map m;
-        String courseParas,studentNameParas,scoreParas,practiceParas;
-        String dailyParas;
+        String courseParas,studentNameParas,scoreParas,dailyParas,courseManagementParas;
+
+        String practiceParas;
+
         for(int i = 0; i < sList.size();i++) {
             s = sList.get(i);
             m = new HashMap();
@@ -74,11 +76,13 @@ public class TeachController {
             courseParas = "model=course&studentId=" + s.getId();
             dailyParas="model=daily&studentId="+s.getId();
             scoreParas="model=score&studentNum="+s.getStudentNum();
+            courseManagementParas="model=courseManagement&studentNum="+s.getStudentNum();
             practiceParas="model=practice&studentId="+s.getId();
             m.put("practiceParas",practiceParas);
             m.put("scoreParas",scoreParas);
             m.put("dailyParas",dailyParas);
             m.put("studentNameParas",studentNameParas);
+            m.put("courseManagementParas",courseManagementParas);
             m.put("courseParas",courseParas);
             m.put("id", s.getId());
             m.put("studentNum",s.getStudentNum());
