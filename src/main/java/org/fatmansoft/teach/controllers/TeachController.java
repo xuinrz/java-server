@@ -65,7 +65,7 @@ public class TeachController {
             return dataList;
         Student s;
         Map m;
-        String courseParas,studentNameParas,scoreParas;
+        String courseParas,studentNameParas,scoreParas,practiceParas;
         String dailyParas;
         for(int i = 0; i < sList.size();i++) {
             s = sList.get(i);
@@ -74,6 +74,8 @@ public class TeachController {
             courseParas = "model=course&studentId=" + s.getId();
             dailyParas="model=daily&studentId="+s.getId();
             scoreParas="model=score&studentNum="+s.getStudentNum();
+            practiceParas="model=practice&studentId="+s.getId();
+            m.put("practiceParas",practiceParas);
             m.put("scoreParas",scoreParas);
             m.put("dailyParas",dailyParas);
             m.put("studentNameParas",studentNameParas);
@@ -476,7 +478,7 @@ public class TeachController {
         }
         List courseIdList = new ArrayList();
         List<Course> cList = courseRepository.findAll();
-        for (i = 0; i < sList.size(); i++) {
+        for (i = 0; i < cList.size(); i++) {
             c = cList.get(i);
             m = new HashMap();
             m.put("label", c.getCourseName());
