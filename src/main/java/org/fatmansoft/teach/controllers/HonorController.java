@@ -27,9 +27,9 @@ public class HonorController {
     private StudentRepository studentRepository;
 
 
-    public List getHonorMapList(String numName) {
+    public List getHonorMapList(Integer studentId) {
         List dataList = new ArrayList();
-        List<Honor> honorList = honorRepository.findAll();  //数据库查询操作
+        List<Honor> honorList = honorRepository.findHonorListByStudentId(studentId);  //数据库查询操作
         if (honorList == null || honorList.size() == 0)
             return dataList;
         Student s;
@@ -59,8 +59,10 @@ public class HonorController {
 
     @PostMapping("/honorInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse honorInit() {
-        List dataList = getHonorMapList("");
+    public DataResponse honorInit(@Valid @RequestBody DataRequest dataRequest) {
+        Integer studentId = dataRequest.getInteger("studentId");
+        if (studentId==null)studentId=0;
+        List dataList = getHonorMapList(studentId);
         return CommonMethod.getReturnData(dataList);
     }
 
