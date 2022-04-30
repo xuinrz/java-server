@@ -476,7 +476,7 @@ public class TeachController {
         }
         List courseIdList = new ArrayList();
         List<Course> cList = courseRepository.findAll();
-        for (i = 0; i < sList.size(); i++) {
+        for (i = 0; i < cList.size(); i++) {
             c = cList.get(i);
             m = new HashMap();
             m.put("label", c.getCourseName());
