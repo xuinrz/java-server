@@ -6,10 +6,10 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(	name = "daily",
+@Table(	name = "log",
         uniqueConstraints = {
         })
-public class Daily
+public class Log
 {
     @Id
     private Integer id;

@@ -1,50 +1,37 @@
 package org.fatmansoft.teach.controllers;
-import com.openhtmltopdf.extend.FSSupplier;
-import com.openhtmltopdf.extend.impl.FSDefaultCacheStore;
-import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
-import org.fatmansoft.teach.models.Course;
-import org.fatmansoft.teach.models.Daily;
-import org.fatmansoft.teach.models.Score;
+import org.fatmansoft.teach.models.Log;
 import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.repository.CourseRepository;
-import org.fatmansoft.teach.repository.DailyRepository;
+import org.fatmansoft.teach.repository.LogRepository;
 import org.fatmansoft.teach.repository.StudentRepository;
-import org.fatmansoft.teach.service.IntroduceService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.validation.Valid;
-import java.io.InputStream;
 import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/teach")
 
-public class DailyController
+public class LogController
 {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
-    private DailyRepository dailyRepository;
+    private LogRepository logRepository;
 
 
-    public List getDailyMapList(Integer numName) {
+    public List getLogMapList(Integer numName) {
         List dataList = new ArrayList();
-        List<Daily> sList = dailyRepository.findDailyListByStudentId(numName);  //数据库查询操作
+        List<Log> sList = logRepository.findLogListByStudentId(numName);  //数据库查询操作
         if(sList == null || sList.size() == 0)
             return dataList;
-        Daily sc;
+        Log sc;
         Student s;
         Map m;
         for(int i = 0; i < sList.size();i++) {
@@ -67,28 +54,28 @@ public class DailyController
         }
         return dataList;
     }
-    @PostMapping("/dailyInit")
+    @PostMapping("/logInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse dailyInit(@Valid @RequestBody DataRequest dataRequest) {
+    public DataResponse logInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
         if (studentId==null)
         {
             studentId=0;
         }
-        List dataList = getDailyMapList(studentId);
+        List dataList = getLogMapList(studentId);
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
-    public List getDailyMapListForQuery(String numName,String type) {
+    public List getLogMapListForQuery(String numName,String type) {
         List dataList = new ArrayList();
-        List<Daily> dailyList = dailyRepository.findByNumNameType(numName,type);  //数据库查询操作
-        System.out.println(dailyList);
-        if (dailyList == null || dailyList.size() == 0)
+        List<Log> logList = logRepository.findByNumNameType(numName,type);  //数据库查询操作
+        System.out.println(logList);
+        if (logList == null || logList.size() == 0)
             return dataList;
         Student s;
-        Daily sc;
+        Log sc;
         Map m;
-        for(int i = 0; i < dailyList.size();i++) {
-            sc = dailyList.get(i);
+        for(int i = 0; i < logList.size();i++) {
+            sc = logList.get(i);
             s = sc.getStudent();
             m = new HashMap();
             m.put("id", sc.getId());
@@ -108,16 +95,16 @@ public class DailyController
         return dataList;
     }
 
-    @PostMapping("/dailyQuery")
+    @PostMapping("/logQuery")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse dailyQuery(@Valid @RequestBody DataRequest dataRequest) {
+    public DataResponse logQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName= dataRequest.getString("numName");
         String type = dataRequest.getString("category");
         if(numName==null)
             numName="";
         if(type ==null)
             type= "";
-        List dataList = getDailyMapListForQuery(numName,type);
+        List dataList = getLogMapListForQuery(numName,type);
         System.out.println(numName+type);
 
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
@@ -126,35 +113,35 @@ public class DailyController
 
     //  学生信息删除方法
     //Student页面的列表里点击删除按钮则可以删除已经存在的学生信息， 前端会将该记录的id 回传到后端，方法从参数获取id，查出相关记录，调用delete方法删除
-    @PostMapping("/dailyDelete")
+    @PostMapping("/logDelete")
     @PreAuthorize(" hasRole('ADMIN')")
-    public DataResponse dailyDelete(@Valid @RequestBody DataRequest dataRequest) {
+    public DataResponse logDelete(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");  //获取id值
-        Daily s= null;
-        Optional<Daily> op;
+        Log s= null;
+        Optional<Log> op;
         if(id != null) {
-            op= dailyRepository.findById(id);   //查询获得实体对象
+            op= logRepository.findById(id);   //查询获得实体对象
             if(op.isPresent()) {
                 s = op.get();
             }
         }
         if(s != null) {
-            dailyRepository.delete(s);    //数据库永久删除
+            logRepository.delete(s);    //数据库永久删除
         }
         return CommonMethod.getReturnMessageOK();  //通知前端操作正常
     }
 
 
-    @PostMapping("/dailyEditInit")
+    @PostMapping("/logEditInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse dailyEditInit(@Valid @RequestBody DataRequest dataRequest) {
+    public DataResponse logEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");//id
-        Daily sc= null;//Score 变量
+        Log sc= null;//Score 变量
         Student s;//Student变量
         //Course c;//Course变量
-        Optional<Daily> op;//一个容器op
+        Optional<Log> op;//一个容器op
         if(id != null) { //如果找到了id
-            op= dailyRepository.findById(id);//op指向了这些id
+            op= logRepository.findById(id);//op指向了这些id
             if(op.isPresent()) {
                 sc = op.get();    //通过op的指向来让Score变量 sc获得id数据集
             }
@@ -200,17 +187,17 @@ public class DailyController
      //   form.put("courseIdList",courseIdList);
         return CommonMethod.getReturnData(form); //这里回传包含学生信息的Map对象
     }
-    public synchronized Integer getNewDailyId(){
-        Integer  id = dailyRepository.getMaxId();  // 查询最大的id
+    public synchronized Integer getNewLogId(){
+        Integer  id = logRepository.getMaxId();  // 查询最大的id
         if(id == null)
             id = 1;
         else
             id = id+1;
         return id;
     }
-    @PostMapping("/dailyEditSubmit")
+    @PostMapping("/logEditSubmit")
     @PreAuthorize(" hasRole('ADMIN')")
-    public DataResponse dailyEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
+    public DataResponse logEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Map form = dataRequest.getMap("form"); //参数获取Map对象
         Integer id = CommonMethod.getInteger(form,"id");
         Integer studentId = CommonMethod.getInteger(form,"studentId");
@@ -220,19 +207,19 @@ public class DailyController
         Date datetime = CommonMethod.getDate(form,"dateTime");
         String  matters= CommonMethod.getString(form,"matters");
 
-        Daily sc= null;
+        Log sc= null;
         Student s= null;
         //Course c = null;
-        Optional<Daily> op;
+        Optional<Log> op;
         if(id != null) {
-            op= dailyRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
+            op= logRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
             if(op.isPresent()) {
                 sc = op.get();
             }
         }
         if(sc == null) {
-            sc = new Daily();   //不存在 创建实体对象
-            id = getNewDailyId(); //获取新的主键，这个是线程同步问题;
+            sc = new Log();   //不存在 创建实体对象
+            id = getNewLogId(); //获取新的主键，这个是线程同步问题;
             sc.setId(id);  //设置新的id
         }
         sc.setStudent(studentRepository.findById(studentId).get());  //设置属性
@@ -240,7 +227,7 @@ public class DailyController
         sc.setMatters(matters);
         sc.setDatetime(datetime);
         sc.setCategory(category);
-        dailyRepository.save(sc);  //新建和修改都调用save方法
+        logRepository.save(sc);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(sc.getId());  // 将记录的id返回前端
     }
 }

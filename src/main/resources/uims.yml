@@ -12,7 +12,7 @@ uims:
       title: 创新实践管理
     - name: honor
       title: 荣誉管理
-    - name: daily
+    - name: log
       title: 日志管理
     - name: homework
       title: 作业信息
@@ -48,10 +48,10 @@ uims:
             - name: honor
               label: 荣誉
         - type: opers
-          label: 日常管理
+          label: 日志管理
           opers:
-            - name: daily
-              label: 日常管理
+            - name: log
+              label: 日志管理
         - type: opers
           label: 课程
           opers:
@@ -477,7 +477,7 @@ uims:
           prop: pTeacher
           label: 指导教师
 
-    - name: daily
+    - name: log
       type: table
       title: 日志管理
       showAdd: 1
@@ -519,7 +519,7 @@ uims:
               label: 外出申请
             - value: 请假审批
               label: 请假审批
-    - name: dailyEdit
+    - name: logEdit
       type: form
       title: 日志信息
       item:
