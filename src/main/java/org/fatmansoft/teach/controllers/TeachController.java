@@ -18,6 +18,7 @@ import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -64,7 +65,7 @@ public class TeachController {
             return dataList;
         Student s;
         Map m;
-        String courseParas,studentNameParas;
+        String courseParas,studentNameParas,scoreParas;
         String dailyParas;
         for(int i = 0; i < sList.size();i++) {
             s = sList.get(i);
@@ -72,6 +73,8 @@ public class TeachController {
             studentNameParas = "model=introduce&studentId=" + s.getId();
             courseParas = "model=course&studentId=" + s.getId();
             dailyParas="model=daily&studentId="+s.getId();
+            scoreParas="model=score&studentNum="+s.getStudentNum();
+            m.put("scoreParas",scoreParas);
             m.put("dailyParas",dailyParas);
             m.put("studentNameParas",studentNameParas);
             m.put("courseParas",courseParas);
@@ -387,16 +390,16 @@ public class TeachController {
     }
 
 
-    public List getScoreMapList(String numName) {
+    public List getScoreMapList(String studentId,String courseName) {
         List dataList = new ArrayList();
-        List<Score> sList = scoreRepository.findAll();  //数据库查询操作
+        List<Score> sList = scoreRepository.findByNumNameCourseName(studentId,courseName);  //数据库查询操作
         if (sList == null || sList.size() == 0)
             return dataList;
         Score sc;
         Student s;
         Course c;
         Map m;
-        String courseParas, studentNameParas;
+//        String courseParas, studentNameParas;
         for (int i = 0; i < sList.size(); i++) {
             sc = sList.get(i);
             s = sc.getStudent();
@@ -408,6 +411,7 @@ public class TeachController {
             m.put("courseNum", c.getCourseNum());
             m.put("courseName", c.getCourseName());
             m.put("mark", sc.getMark());
+            m.put("gradePoint",sc.getGradePoint());
             dataList.add(m);
         }
         return dataList;
@@ -416,7 +420,11 @@ public class TeachController {
     @PostMapping("/scoreInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse scoreInit(@Valid @RequestBody DataRequest dataRequest) {
-        List dataList = getScoreMapList("");
+        String studentId = dataRequest.getString("studentNum");
+        String courseName = dataRequest.getString("courseName");
+        if (studentId==null)studentId="";
+        if (courseName==null)courseName="";
+        List dataList = getScoreMapList(studentId,courseName);
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
 
@@ -525,7 +533,10 @@ public class TeachController {
         }
         sc.setStudent(studentRepository.findById(studentId).get());  //设置属性
         sc.setCourse(courseRepository.findById(courseId).get());
+        if (mark==null)return CommonMethod.getReturnMessageError("未输入成绩");
         sc.setMark(mark);
+        double gradePoint=sc.getMark()>50?(sc.getMark()-50)/10.00:0;
+        sc.setGradePoint(gradePoint);
         scoreRepository.save(sc);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(sc.getId());  // 将记录的id返回前端
     }

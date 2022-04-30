@@ -20,6 +20,17 @@ public class Score {
 
     private Integer mark;
 
+    private Double gradePoint;
+
+
+    public Double getGradePoint() {
+        return gradePoint;
+    }
+
+    public void setGradePoint(Double gradePoint) {
+        this.gradePoint = gradePoint;
+    }
+
     public Integer getId() {
         return id;
     }

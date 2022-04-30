@@ -34,15 +34,20 @@ uims:
           prop: phone
           label: 电话
         - type: opers
-          label: 我的课程
-          opers:
-            - name: course
-              label: 我的课程
-        - type: opers
           label: 日常管理
           opers:
             - name: daily
               label: 日常管理
+        - type: opers
+          label: 课程
+          opers:
+            - name: course
+              label: 我的课程
+        - type: opers
+          label: 成绩
+          opers:
+            - name: score
+              label: 我的成绩
         - type: opers
           label: 操作
           opers:
@@ -173,6 +178,11 @@ uims:
             - name: attendInf
               label: 考勤信息
         - type: opers
+          label: 成绩管理
+          opers:
+            - name: score
+              label: 成绩管理
+        - type: opers
           label: 操作
           opers:
             - name: edit
@@ -260,6 +270,9 @@ uims:
         - type: text
           prop: mark
           label: 成绩
+        - type: text
+          prop: gradePoint
+          label: 绩点
         - type: opers
           label: 操作
           opers:
@@ -438,7 +451,7 @@ uims:
           label: 实践名称
         - type: input
           prop: pTeacher
-          label: 实践时间
+          label: 指导教师
 
     - name: daily
       type: table

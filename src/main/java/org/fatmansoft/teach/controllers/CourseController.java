@@ -32,6 +32,7 @@ public class CourseController {
         Map m;
         String courseNameParas;
         String attendInfParas;
+        String scoreParas;
         for (int i = 0; i < courseList.size(); i++) {
             course = courseList.get(i);
             m = new HashMap();
@@ -39,6 +40,8 @@ public class CourseController {
             m.put("courseNum", course.getCourseNum());
             courseNameParas="model=courseCenter&courseName="+course.getCourseName();
             attendInfParas="model=attendInf&courseName="+course.getCourseName();
+            scoreParas="model=score&courseName="+course.getCourseName();
+            m.put("scoreParas",scoreParas);
             m.put("courseName", course.getCourseName());
             m.put("credit", course.getCredit());
             m.put("teacher", course.getTeacher());
