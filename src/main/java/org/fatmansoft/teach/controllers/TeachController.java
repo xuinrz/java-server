@@ -65,11 +65,14 @@ public class TeachController {
         Student s;
         Map m;
         String courseParas,studentNameParas;
+        String dailyParas;
         for(int i = 0; i < sList.size();i++) {
             s = sList.get(i);
             m = new HashMap();
             studentNameParas = "model=introduce&studentId=" + s.getId();
             courseParas = "model=course&studentId=" + s.getId();
+            dailyParas="model=daily&studentId="+s.getId();
+            m.put("dailyParas",dailyParas);
             m.put("studentNameParas",studentNameParas);
             m.put("courseParas",courseParas);
             m.put("id", s.getId());

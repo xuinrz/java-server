@@ -39,9 +39,9 @@ public class DailyController
     private DailyRepository dailyRepository;
 
 
-    public List getDailyMapList(String numName) {
+    public List getDailyMapList(Integer numName) {
         List dataList = new ArrayList();
-        List<Daily> sList = dailyRepository.findAll();  //数据库查询操作
+        List<Daily> sList = dailyRepository.findDailyListByStudentId(numName);  //数据库查询操作
         if(sList == null || sList.size() == 0)
             return dataList;
         Daily sc;
@@ -70,7 +70,12 @@ public class DailyController
     @PostMapping("/dailyInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse dailyInit(@Valid @RequestBody DataRequest dataRequest) {
-        List dataList = getDailyMapList("");
+        Integer studentId = dataRequest.getInteger("studentId");
+        if (studentId==null)
+        {
+            studentId=0;
+        }
+        List dataList = getDailyMapList(studentId);
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
     public List getDailyMapListForQuery(String numName,String type) {

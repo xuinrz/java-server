@@ -19,7 +19,7 @@ public interface DailyRepository extends JpaRepository<Daily,Integer>
     @Query(value = " from Daily d where (?1='' or (d.student.studentNum like %?1%) or (d.student.studentName like %?1%)) and (d.category like %?2% or ?2='')")
     List<Daily> findByNumNameType(String numName,String type);
 
-    @Query(value="select s.course from Score s where s.student.id=?1")
-    List<Course> findCourseList(Integer studentId);
+    @Query(value="from Daily s where s.student.id=?1 or (?1=0)" )
+    List<Daily> findDailyListByStudentId(Integer studentId);
 
 }
