@@ -48,6 +48,11 @@ uims:
             - name: honor
               label: 荣誉
         - type: opers
+          label: 日常管理
+          opers:
+            - name: daily
+              label: 日常管理
+        - type: opers
           label: 日志管理
           opers:
             - name: log
@@ -736,3 +741,57 @@ uims:
         - type: date
           prop: deadline
           label: 截止日期
+
+    - name: daily
+      type: table
+      title: 日常管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: activity
+          label: 活动类型
+        - type: text
+          prop: activityName
+          label: 活动名称
+        - type: text
+          prop: activityDate
+          label: 活动日期
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+            - name: detail
+    - name: dailyEdit
+      type: form
+      title: 日常信息
+      item:
+        - type: select
+          prop: studentId
+          label: 学生
+        - type: select
+          prop: activity
+          label: 活动类型
+          option:
+            - value: 体育活动
+              label: 体育活动
+            - value: 外出旅游
+              label: 外出旅游
+            - value: 文艺演出
+              label: 文艺演出
+            - value: 聚会
+              label: 聚会
+            - value: 5
+              label: 其他
+        - type: input
+          prop: activityName
+          label: 活动名称
+        - type: date
+          prop: activityDate
+          label: 活动日期
