@@ -33,6 +33,7 @@ public class CourseController {
         String courseNameParas;
         String attendInfParas;
         String scoreParas;
+        String courseManagementParas;
         for (int i = 0; i < courseList.size(); i++) {
             course = courseList.get(i);
             m = new HashMap();
@@ -41,6 +42,7 @@ public class CourseController {
             courseNameParas="model=courseCenter&courseName="+course.getCourseName();
             attendInfParas="model=attendInf&courseName="+course.getCourseName();
             scoreParas="model=score&courseName="+course.getCourseName();
+            courseManagementParas="model=courseManagement&courseName="+course.getCourseName();
             m.put("scoreParas",scoreParas);
             m.put("courseName", course.getCourseName());
             m.put("credit", course.getCredit());
@@ -48,6 +50,7 @@ public class CourseController {
             m.put("type", course.getType());
             m.put("courseNameParas",courseNameParas);
             m.put("attendInfParas",attendInfParas);
+            m.put("courseManagementParas",courseManagementParas);
             dataList.add(m);
         }
         return dataList;
