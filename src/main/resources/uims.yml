@@ -4,6 +4,8 @@ uims:
       title: 学生管理
     - name: course
       title: 学习管理
+    - name: courseManagement
+      title: 选课管理
     - name: score
       title: 成绩管理
     - name: practice
@@ -46,8 +48,8 @@ uims:
         - type: opers
           label: 课程
           opers:
-            - name: course
-              label: 我的课程
+            - name: courseManagement
+              label: 课程管理
         - type: opers
           label: 成绩
           opers:
@@ -177,6 +179,11 @@ uims:
         - type: text
           prop: teacher
           label: 教师
+        - type: opers
+          label: 选课信息
+          opers:
+            - name: courseManagement
+              label: 选课管理
         - type: opers
           label: 考勤信息
           opers:
@@ -618,3 +625,53 @@ uims:
         - type: input
           prop: reference
           label: 参考资料
+
+    - name: courseManagement
+      type: table
+      title: 课程管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: courseNumber
+          label: 课程号
+        - type: text
+          prop: courseName
+          label: 课程名
+        - type: text
+          prop: credit
+          label: 学分
+        - type: text
+          prop: courseHour
+          label: 学时
+        - type: opers
+          label: 操作
+          opers:
+            - name: detail
+            - name: edit
+            - name: delete
+
+
+      query:
+        - type: input
+          prop: numName
+          label: 请输入学号或姓名
+        - type: input
+          prop: courseName
+          label: 请输入课程名
+
+    - name: courseManagementEdit
+      type: form
+      title: 课程信息
+      item:
+        - type: select
+          prop: studentId
+          label: 学生
+        - type: select
+          prop: courseId
+          label: 课程名
