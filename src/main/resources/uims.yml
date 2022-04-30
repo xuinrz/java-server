@@ -34,6 +34,11 @@ uims:
           prop: phone
           label: 电话
         - type: opers
+          label: 创新实践
+          opers:
+            - name: practice
+              label: 创新实践
+        - type: opers
           label: 日常管理
           opers:
             - name: daily
@@ -455,7 +460,7 @@ uims:
 
     - name: daily
       type: table
-      title: 日常管理
+      title: 日志管理
       showAdd: 1
       item:
         - type: text
@@ -497,7 +502,7 @@ uims:
               label: 请假审批
     - name: dailyEdit
       type: form
-      title: 日常信息
+      title: 日志信息
       item:
         - type: select
           prop: studentId

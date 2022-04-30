@@ -24,9 +24,9 @@ public class PracticeController {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List getPracticeMapList(String numName) {
+    public List getPracticeMapList(Integer studentId) {
         List dataList = new ArrayList();
-        List<Practice> practiceList = practiceRepository.findAll();  //数据库查询操作
+        List<Practice> practiceList = practiceRepository.findPracticeListByStudentId(studentId);  //数据库查询操作
         if (practiceList == null || practiceList.size() == 0)
             return dataList;
         Student s;
@@ -63,8 +63,10 @@ public class PracticeController {
 
     @PostMapping("/practiceInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse practiceInit() {
-        List dataList = getPracticeMapList("");
+    public DataResponse practiceInit(@Valid @RequestBody DataRequest dataRequest) {
+        Integer studentId = dataRequest.getInteger("studentId");
+        if (studentId==null)studentId=0;
+        List dataList = getPracticeMapList(studentId);
         return CommonMethod.getReturnData(dataList);
     }
 
