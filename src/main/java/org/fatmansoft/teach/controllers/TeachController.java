@@ -313,7 +313,7 @@ public class TeachController {
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse getStudentIntroduceData(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
-        Map data = introduceService.getIntroduceDataMap(studentId);
+        Map data = introduceService.getIntroduceDataMap(studentId) ;
         return CommonMethod.getReturnData(data);  //返回前端个人简历数据
     }
 
@@ -346,8 +346,9 @@ public class TeachController {
     }
 
     @PostMapping("/getStudentIntroducePdf")
-    public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(Map dataRequest) {
-        Integer studentId = CommonMethod.getInteger(dataRequest, "studentId");
+    public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(@Valid @RequestBody DataRequest dataRequest) {
+        Integer studentId = dataRequest.getInteger("studentId");
+       // System.out.println(studentId);
         Map data = introduceService.getIntroduceDataMap(studentId);
         String content = "<!DOCTYPE html>";
         content += "<html>";
