@@ -4,8 +4,6 @@ uims:
       title: 学生管理
     - name: course
       title: 学习管理
-    - name: courseManagement
-      title: 选课管理
     - name: score
       title: 成绩管理
     - name: practice
