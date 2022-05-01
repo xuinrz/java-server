@@ -27,6 +27,15 @@ public class Course {
     private String hours;//课时
     private String type;//课程类型
     private String place;//教室
+    private Integer capacity=50;//课容量
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 
     public String getTime() {
         return time;

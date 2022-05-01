@@ -1,14 +1,19 @@
 package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.Course;
+import org.fatmansoft.teach.models.CourseCenter;
+import org.fatmansoft.teach.models.CourseManagement;
 import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
+import org.fatmansoft.teach.repository.CourseCenterRepository;
+import org.fatmansoft.teach.repository.CourseManagementRepository;
 import org.fatmansoft.teach.repository.CourseRepository;
 import org.fatmansoft.teach.repository.StudentRepository;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +26,8 @@ import java.util.*;
 public class CourseController {
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private CourseManagementRepository courseManagementRepository;
 
 
     public List getCourseMapList(String numName) {
@@ -40,20 +47,25 @@ public class CourseController {
             m = new HashMap();
             m.put("id", course.getId());
             m.put("courseNum", course.getCourseNum());
-            courseNameParas="model=courseCenter&courseName="+course.getCourseName();
-            attendInfParas="model=attendInf&courseName="+course.getCourseName();
-            scoreParas="model=score&courseName="+course.getCourseName();
-            courseManagementParas="model=courseManagement&courseName="+course.getCourseName();
-            homeworkParas="model=homework&courseId="+course.getId();
-            m.put("homeworkParas",homeworkParas);
-            m.put("scoreParas",scoreParas);
+            courseNameParas = "model=courseCenter&courseName=" + course.getCourseName();
+            attendInfParas = "model=attendInf&courseName=" + course.getCourseName();
+            scoreParas = "model=score&courseName=" + course.getCourseName();
+            courseManagementParas = "model=courseManagement&courseName=" + course.getCourseName();
+            homeworkParas = "model=homework&courseId=" + course.getId();
+            m.put("homeworkParas", homeworkParas);
+            m.put("scoreParas", scoreParas);
             m.put("courseName", course.getCourseName());
             m.put("credit", course.getCredit());
             m.put("teacher", course.getTeacher());
             m.put("type", course.getType());
-            m.put("courseNameParas",courseNameParas);
-            m.put("attendInfParas",attendInfParas);
-            m.put("courseManagementParas",courseManagementParas);
+            Integer selected = courseManagementRepository.countByCourseId(course.getId());
+            if(selected==null)selected=0;
+            Integer capacity =course.getCapacity();
+            if (capacity==null)capacity=-1;
+            m.put("capacity", selected + "/" + ((capacity==-1)?"待定":capacity));
+            m.put("courseNameParas", courseNameParas);
+            m.put("attendInfParas", attendInfParas);
+            m.put("courseManagementParas", courseManagementParas);
             dataList.add(m);
         }
         return dataList;
@@ -108,6 +120,7 @@ public class CourseController {
             form.put("time", course.getTime());
             form.put("hours", course.getHours());
             form.put("place", course.getPlace());
+            form.put("capacity", course.getCapacity());
         }
         return CommonMethod.getReturnData(form); //这里回传包含学生信息的Map对象
 
@@ -136,6 +149,7 @@ public class CourseController {
         String time = CommonMethod.getString(form, "time");
         String hours = CommonMethod.getString(form, "hours");
         String place = CommonMethod.getString(form, "place");
+        Integer capacity = CommonMethod.getInteger(form, "capacity");
         Course course = null;
         Optional<Course> op;
         if (id != null) {
@@ -158,16 +172,17 @@ public class CourseController {
         course.setTime(time);
         course.setHours(hours);
         course.setPlace(place);
+        course.setCapacity(capacity);
         courseRepository.save(course);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(course.getId());  // 将记录的id返回前端
     }
 
 
-    public List getCourseMapListForQuery(String numName, String type,String creditOrder) {
+    public List getCourseMapListForQuery(String numName, String type, String creditOrder) {
         List dataList = new ArrayList();
         //数据库查询操作
         List<Course> courseList = courseRepository.findByNumNameType(numName, type);
-        if (creditOrder != null&&creditOrder!="") {
+        if (creditOrder != null && creditOrder != "") {
             if (creditOrder.equals("学分降序")) {
                 courseList = courseRepository.findByNumNameTypeCreditDescend(numName, type);
             } else if (creditOrder.equals("学分升序")) {
@@ -204,7 +219,7 @@ public class CourseController {
         if (numName == null) numName = "";
         if (type == null) type = "";
         if (creditOrder == null) creditOrder = "";
-        List dataList = getCourseMapListForQuery(numName, type,creditOrder);
+        List dataList = getCourseMapListForQuery(numName, type, creditOrder);
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
 

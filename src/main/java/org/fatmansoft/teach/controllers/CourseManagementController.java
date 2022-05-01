@@ -197,11 +197,11 @@ public class CourseManagementController {
 
     @PostMapping("/courseManagementEditSubmit")
     @PreAuthorize(" hasRole('ADMIN')")
-    public DataResponse courseManagementEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
+    public synchronized DataResponse courseManagementEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Map form = dataRequest.getMap("form"); //参数获取Map对象
         Integer id = CommonMethod.getInteger(form, "id");
-        Integer studentName = CommonMethod.getInteger(form, "studentId");
-        Integer courseName = CommonMethod.getInteger(form, "courseId");
+        Integer studentId = CommonMethod.getInteger(form, "studentId");
+        Integer courseId = CommonMethod.getInteger(form, "courseId");
         CourseManagement cm = null;
         Student s = null;
         Course c = null;
@@ -217,9 +217,12 @@ public class CourseManagementController {
             id = getNewCourseManagementId(); //获取鑫的主键，这个是线程同步问题;
             cm.setId(id);  //设置新的id
         }
-        cm.setStudent(studentRepository.findById(studentName).get());  //设置属性
-        cm.setCourse(courseRepository.findById(courseName).get());
-
+        cm.setStudent(studentRepository.findById(studentId).get());  //设置属性
+        cm.setCourse(courseRepository.findById(courseId).get());
+        Boolean isExist=(courseManagementRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+        if(isExist)return CommonMethod.getReturnMessageError("该选课记录已存在");
+        if(courseManagementRepository.countByCourseId(courseRepository.findById(courseId).get().getId())==courseRepository.findById(courseId).get().getCapacity())
+        return CommonMethod.getReturnMessageError("课程已满，无法选择");
         courseManagementRepository.save(cm);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(cm.getId());  // 将记录的id返回前端
     }

@@ -24,6 +24,7 @@ public class IntroduceService {
 
     //个人简历信息数据准备方法  请同学修改这个方法，请根据自己的数据的希望展示的内容拼接成字符串，放在Map对象里， attachList 可以方多段内容，具体内容有个人决定
     public Map getIntroduceDataMap(Integer studentId) {
+        if(studentId==null)studentId=1;
         Student s = studentRepository.findById(studentId).get();
         String practiceContent = "";
 

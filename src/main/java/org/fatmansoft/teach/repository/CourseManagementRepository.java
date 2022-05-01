@@ -13,12 +13,16 @@ public interface CourseManagementRepository extends JpaRepository<CourseManageme
     Integer getMaxId();
     List<CourseManagement> findByStudentId(Integer studentId);
     //List<Daily> findByCourseCourseNum(String courseNum);
-    @Query(value = " from Log d where (?1='' or (d.student.studentNum like %?1%) or (d.student.studentName like %?1%)) and (d.category like %?2% or ?2='')")
-    List<CourseManagement> findByNumNameType(String numName,String type);
+    @Query(value = " from CourseManagement s where s.student.id=?1 and s.course.id=?2 ")
+    List<CourseManagement> isCourseManagementExist(Integer studentId,Integer courseId);
 
     @Query(value = " from CourseManagement s where (?1='' or (s.student.studentNum like %?1%) or (s.student.studentName like %?1%)) and (s.course.courseName like concat('%',?2,'%') or ?2='') ")
     List<CourseManagement> findByNumNameCourseName(String numName, String courseName);
 
     @Query(value= "from CourseManagement cm where (?1= cm.student.id)")
     List<CourseManagement> findByStudentIdInInf(Integer studentId);
+
+    @Query(value = "select count(id) from CourseManagement where course.id=?1")
+    Integer countByCourseId(Integer courseId);
+
 }

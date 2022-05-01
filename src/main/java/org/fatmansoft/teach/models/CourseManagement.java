@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(	name = "daily",
+@Table(	name = "courseManagement",
         uniqueConstraints = {
         })
 

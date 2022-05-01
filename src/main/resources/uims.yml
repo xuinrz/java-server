@@ -189,6 +189,9 @@ uims:
         - type: text
           prop: teacher
           label: 教师
+        - type: text
+          prop: capacity
+          label: 课容量
         - type: opers
           label: 作业信息
           opers:
@@ -267,6 +270,9 @@ uims:
         - type: input
           prop: teacher
           label: 教师
+        - type: input
+          prop: capacity
+          label: 课容量
         - type: input
           prop: time
           label: 上课时间
