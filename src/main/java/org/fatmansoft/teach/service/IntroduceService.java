@@ -1,9 +1,6 @@
 package org.fatmansoft.teach.service;
 
-import org.fatmansoft.teach.models.CourseManagement;
-import org.fatmansoft.teach.models.Honor;
-import org.fatmansoft.teach.models.Practice;
-import org.fatmansoft.teach.models.Student;
+import org.fatmansoft.teach.models.*;
 import org.fatmansoft.teach.repository.*;
 import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,10 @@ public class IntroduceService {
     private HonorRepository honorRepository;
     @Autowired
     private CourseManagementRepository courseRepository;
+    @Autowired
+    private StuInfRepository stuInfRepository;
+
+
 
     //个人简历信息数据准备方法  请同学修改这个方法，请根据自己的数据的希望展示的内容拼接成字符串，放在Map对象里， attachList 可以方多段内容，具体内容有个人决定
     public Map getIntroduceDataMap(Integer studentId) {
@@ -105,5 +106,50 @@ public class IntroduceService {
             data.put("attachList", attachList);
             return data;
         }
+
+    public Map getIntroduceDataMap2(Integer studentId) {
+
+
+        if(studentId==null)studentId=1;
+        Student s = studentRepository.findById(studentId).get();
+
+        List<Practice> practiceList = practiceRepository.findPracticeListByStudentId(studentId);
+
+        List<Honor> honorList = honorRepository.findHonorListByStudentId(studentId);
+
+        List<CourseManagement> courseList = courseRepository.findByStudentIdInInf(studentId);
+
+        Map data = new HashMap();
+        data.put("age", s.getAge()  );
+        data.put("sex", s.getSex()  );
+        data.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(), "MM-dd ")  );
+        data.put("face", s.getFace()  );
+        data.put("school", "本科" );
+        data.put("phone", s.getPhone()  );
+        data.put("email", s.getEmail()  );
+        data.put("portrait", s.getPortrait()  );
+        data.put("myName", s.getStudentName());
+        data.put("practiceList",practiceList);
+        data.put("honorList",honorList);
+        data.put("courseList",courseList);
+
+        String name=s.getStudentName();
+        List<Score> scoreList=stuInfRepository.findScoreByStudentName(name);
+        Score score;
+        double sum=0,totleCredit=0;
+        int absenceCount,awardCount;
+        for(int i=0;i<scoreList.size();i++){
+
+            score=scoreList.get(i);
+
+            int credit=score.getCourse().getCredit();
+            totleCredit+=credit;
+            sum+=credit*score.getGradePoint();
+        }
+        double x=sum/totleCredit;
+        data.put("gradePoint",x);
+
+        return data;
+    }
 }
 

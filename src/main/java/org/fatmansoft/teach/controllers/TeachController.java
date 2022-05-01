@@ -4,9 +4,7 @@ package org.fatmansoft.teach.controllers;
 import com.openhtmltopdf.extend.FSSupplier;
 import com.openhtmltopdf.extend.impl.FSDefaultCacheStore;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
-import org.fatmansoft.teach.models.Course;
-import org.fatmansoft.teach.models.Score;
-import org.fatmansoft.teach.models.Student;
+import org.fatmansoft.teach.models.*;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.CourseRepository;
@@ -61,52 +59,53 @@ public class TeachController {
     public List getStudentMapList(String numName) {
         List dataList = new ArrayList();
         List<Student> sList = studentRepository.findStudentListByNumName(numName);  //数据库查询操作
-        if(sList == null || sList.size() == 0)
+        if (sList == null || sList.size() == 0)
             return dataList;
         Student s;
         Map m;
-        String courseParas,studentNameParas,scoreParas,logParas,courseManagementParas,honorParas,stuInfParas;
+        String courseParas, studentNameParas, scoreParas, logParas, courseManagementParas, honorParas, stuInfParas;
 
-        String practiceParas,dailyParas,tableParas;
+        String practiceParas, dailyParas, tableParas;
 
-        for(int i = 0; i < sList.size();i++) {
+        for (int i = 0; i < sList.size(); i++) {
             s = sList.get(i);
             m = new HashMap();
             studentNameParas = "model=introduce&studentId=" + s.getId();
             courseParas = "model=course&studentId=" + s.getId();
-            logParas="model=log&studentId="+s.getId();
-            scoreParas="model=score&studentNum="+s.getStudentNum();
-            courseManagementParas="model=courseManagement&studentNum="+s.getStudentNum();
-            practiceParas="model=practice&studentId="+s.getId();
-            honorParas="model=honor&studentId="+s.getId();
-            dailyParas = "model=daily&studentId="+s.getId();
-            tableParas = "model=table&studentId="+s.getId();
-            stuInfParas = "model=stuInf&stuName="+s.getStudentName();
-            m.put("stuInfParas",stuInfParas);
-            m.put("tableParas",tableParas);
-            m.put("dailyParas",dailyParas);
-            m.put("honorParas",honorParas);
-            m.put("practiceParas",practiceParas);
-            m.put("scoreParas",scoreParas);
-            m.put("logParas",logParas);
-            m.put("studentNameParas",studentNameParas);
-            m.put("courseManagementParas",courseManagementParas);
-            m.put("courseParas",courseParas);
+            logParas = "model=log&studentId=" + s.getId();
+            scoreParas = "model=score&studentNum=" + s.getStudentNum();
+            courseManagementParas = "model=courseManagement&studentNum=" + s.getStudentNum();
+            practiceParas = "model=practice&studentId=" + s.getId();
+            honorParas = "model=honor&studentId=" + s.getId();
+            dailyParas = "model=daily&studentId=" + s.getId();
+            tableParas = "model=table&studentId=" + s.getId();
+            stuInfParas = "model=stuInf&stuName=" + s.getStudentName();
+            m.put("stuInfParas", stuInfParas);
+            m.put("tableParas", tableParas);
+            m.put("dailyParas", dailyParas);
+            m.put("honorParas", honorParas);
+            m.put("practiceParas", practiceParas);
+            m.put("scoreParas", scoreParas);
+            m.put("logParas", logParas);
+            m.put("studentNameParas", studentNameParas);
+            m.put("courseManagementParas", courseManagementParas);
+            m.put("courseParas", courseParas);
             m.put("id", s.getId());
-            m.put("studentNum",s.getStudentNum());
-            m.put("studentName",s.getStudentName());
-            if("男".equals(s.getSex())) {    //数据库存的是编码，显示是名称
-                m.put("sex","男");
-            }else {
-                m.put("sex","女");
+            m.put("studentNum", s.getStudentNum());
+            m.put("studentName", s.getStudentName());
+            if ("男".equals(s.getSex())) {    //数据库存的是编码，显示是名称
+                m.put("sex", "男");
+            } else {
+                m.put("sex", "女");
             }
-            m.put("age",s.getAge());
-            m.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(),"yyyy-MM-dd"));  //时间格式转换字符串
-            m.put("phone",s.getPhone());
+            m.put("age", s.getAge());
+            m.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(), "yyyy-MM-dd"));  //时间格式转换字符串
+            m.put("phone", s.getPhone());
             dataList.add(m);
         }
         return dataList;
     }
+
     //student页面初始化方法
     //Table界面初始是请求列表的数据，这里缺省查出所有学生的信息，传递字符“”给方法getStudentMapList，返回所有学生数据，
     @PostMapping("/studentInit")
@@ -115,12 +114,13 @@ public class TeachController {
         List dataList = getStudentMapList("");
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
+
     //student页面点击查询按钮请求
     //Table界面初始是请求列表的数据，从请求对象里获得前端界面输入的字符串，作为参数传递给方法getStudentMapList，返回所有学生数据，
     @PostMapping("/studentQuery")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentQuery(@Valid @RequestBody DataRequest dataRequest) {
-        String numName= dataRequest.getString("numName");
+        String numName = dataRequest.getString("numName");
         List dataList = getStudentMapList(numName);
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
@@ -133,28 +133,28 @@ public class TeachController {
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
-        Student s= null;
+        Student s = null;
         Optional<Student> op;
-        if(id != null) {
-            op= studentRepository.findById(id);
-            if(op.isPresent()) {
+        if (id != null) {
+            op = studentRepository.findById(id);
+            if (op.isPresent()) {
                 s = op.get();
             }
         }
         Map form = new HashMap();
-        if(s != null) {
-            form.put("id",s.getId());
-            form.put("studentNum",s.getStudentNum());
-            form.put("studentName",s.getStudentName());
-            form.put("sex",s.getSex().equals("男")?"男":"女");  //这里不需要转换
-            form.put("age",s.getAge());
-            form.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(),"yyyy-MM-dd")); //这里需要转换为字符串
-            form.put("phone",s.getPhone());
-            form.put("formerSchool",s.getFormerSchool());
-            form.put("email",s.getEmail());
-            form.put("father",s.getFather());
-            form.put("mother",s.getMother());
-            form.put("portrait",s.getPortrait());
+        if (s != null) {
+            form.put("id", s.getId());
+            form.put("studentNum", s.getStudentNum());
+            form.put("studentName", s.getStudentName());
+            form.put("sex", s.getSex().equals("男") ? "男" : "女");  //这里不需要转换
+            form.put("age", s.getAge());
+            form.put("birthday", DateTimeTool.parseDateTime(s.getBirthday(), "yyyy-MM-dd")); //这里需要转换为字符串
+            form.put("phone", s.getPhone());
+            form.put("formerSchool", s.getFormerSchool());
+            form.put("email", s.getEmail());
+            form.put("father", s.getFather());
+            form.put("mother", s.getMother());
+            form.put("portrait", s.getPortrait());
             if (s.getFace() != null) {
                 if (s.getFace().equals("群众")) {
                     form.put("face", "群众");
@@ -237,6 +237,7 @@ public class TeachController {
         }
         return CommonMethod.getReturnData(form); //这里回传包含学生信息的Map对象
     }
+
     //  学生信息提交按钮方法
     //相应提交请求的方法，前端把所有数据打包成一个Json对象作为参数传回后端，后端直接可以获得对应的Map对象form, 再从form里取出所有属性，复制到
     //实体对象里，保存到数据库里即可，如果是添加一条记录， id 为空，这是先 new Student 计算新的id， 复制相关属性，保存，如果是编辑原来的信息，
@@ -245,35 +246,35 @@ public class TeachController {
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Map form = dataRequest.getMap("form"); //参数获取Map对象
-        Integer id = CommonMethod.getInteger(form,"id");
-        String studentNum = CommonMethod.getString(form,"studentNum");  //Map 获取属性的值
-        String studentName = CommonMethod.getString(form,"studentName");
-        String sex = CommonMethod.getString(form,"sex");
-        Integer age = CommonMethod.getInteger(form,"age");
-        Date birthday = CommonMethod.getDate(form,"birthday");
-        String phone = CommonMethod.getString(form,"phone");
-        String email = CommonMethod.getString(form,"email");
-        String formerSchool = CommonMethod.getString(form,"formerSchool");
-        String father = CommonMethod.getString(form,"father");
-        String mother = CommonMethod.getString(form,"mother");
-        String combination = CommonMethod.getString(form,"combination");
-        String face = CommonMethod.getString(form,"face");
-        String portrait= CommonMethod.getString(form,"portrait");
-        Student s= null;
+        Integer id = CommonMethod.getInteger(form, "id");
+        String studentNum = CommonMethod.getString(form, "studentNum");  //Map 获取属性的值
+        String studentName = CommonMethod.getString(form, "studentName");
+        String sex = CommonMethod.getString(form, "sex");
+        Integer age = CommonMethod.getInteger(form, "age");
+        Date birthday = CommonMethod.getDate(form, "birthday");
+        String phone = CommonMethod.getString(form, "phone");
+        String email = CommonMethod.getString(form, "email");
+        String formerSchool = CommonMethod.getString(form, "formerSchool");
+        String father = CommonMethod.getString(form, "father");
+        String mother = CommonMethod.getString(form, "mother");
+        String combination = CommonMethod.getString(form, "combination");
+        String face = CommonMethod.getString(form, "face");
+        String portrait = CommonMethod.getString(form, "portrait");
+        Student s = null;
         Optional<Student> op;
-        if(id != null) {
-            op= studentRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
-            if(op.isPresent()) {
+        if (id != null) {
+            op = studentRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
+            if (op.isPresent()) {
                 s = op.get();
             }
         }
-        if(s == null) {
+        if (s == null) {
             s = new Student();   //不存在 创建实体对象
             id = studentRepository.getMaxId();  // 查询最大的id
-            if(id == null)
+            if (id == null)
                 id = 1;
             else
-                id = id+1;
+                id = id + 1;
             s.setId(id);  //设置新的id
         }
         s.setStudentNum(studentNum);  //设置属性
@@ -299,15 +300,15 @@ public class TeachController {
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");  //获取id值
-        Student s= null;
+        Student s = null;
         Optional<Student> op;
-        if(id != null) {
-            op= studentRepository.findById(id);   //查询获得实体对象
-            if(op.isPresent()) {
+        if (id != null) {
+            op = studentRepository.findById(id);   //查询获得实体对象
+            if (op.isPresent()) {
                 s = op.get();
             }
         }
-        if(s != null) {
+        if (s != null) {
             studentRepository.delete(s);    //数据库永久删除
         }
         return CommonMethod.getReturnMessageOK();  //通知前端操作正常
@@ -320,7 +321,7 @@ public class TeachController {
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse getStudentIntroduceData(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
-        Map data = introduceService.getIntroduceDataMap(studentId) ;
+        Map data = introduceService.getIntroduceDataMap(studentId);
         return CommonMethod.getReturnData(data);  //返回前端个人简历数据
     }
 
@@ -355,13 +356,13 @@ public class TeachController {
     @PostMapping("/getStudentIntroducePdf")
     public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
-       // System.out.println(studentId);
-        Map data = introduceService.getIntroduceDataMap(studentId);
+        // System.out.println(studentId);
+        Map data = introduceService.getIntroduceDataMap2(studentId);
         String content = "<!DOCTYPE html>";
         content += "<html>";
         content += "<head>";
         content += "<style>";
-        content += "html { font-family: \"SourceHanSansSC\", \"Open Sans\";}";
+        content += "html { font-family: 'SourceHanSansSC', 'Open Sans';}";
         content += "</style>";
         content += "<meta charset='UTF-8' />";
         content += "<title>Insert title here</title>";
@@ -371,46 +372,206 @@ public class TeachController {
         String overview = (String) data.get("overview");
         List<Map> attachList = (List) data.get("attachList");
 
-//        content += getHtmlString();
-        content += "<body>";
+////        content += getHtmlString();
+//        content += "<body>";
+//
+//        content += "<table style='width: 100%;'>";
+//        content += "   <thead >";
+//        content += "     <tr style='text-align: center;font-size: 32px;font-weight:bold;'>";
+//        content += "        " + myName + " </tr>";
+//        content += "   </thead>";
+//        content += "   </table>";
+//
+//        content += "<table style='width: 100%;'>";
+//        content += "   <thead >";
+//        content += "     <tr style='text-align: center;font-size: 32px;font-weight:bold;'>";
+//        content += "        " + overview + " </tr>";
+//        content += "   </thead>";
+//        content += "   </table>";
+//
+//        content += "<table style='width: 100%;border-collapse: collapse;border: 10px solid red;'>";
+//        content += " <tbody>";
+//
+//        for (int i = 0; i < attachList.size(); i++) {
+//            content += "     <tr style='text-align: center;border: 1px solid black;font-size: 14px;'>";
+//            content += "      " + attachList.get(i).get("title") + " ";
+//            content += "     </tr>";
+//            content += "     <tr style='text-align: center;border: 1px solid black; font-size: 14px;'>";
+//            content += "            " + attachList.get(i).get("content") + " ";
+//            content += "     </tr>";
+//        }
+//        content += " </tbody>";
+//        content += "   </table>";
+//
+//        content += "</body>";
+//        content += "</html>";
 
-        content += "<table style='width: 100%;'>";
-        content += "   <thead >";
-        content += "     <tr style='text-align: center;font-size: 32px;font-weight:bold;'>";
-        content += "        " + myName + " </tr>";
-        content += "   </thead>";
-        content += "   </table>";
 
-        content += "<table style='width: 100%;'>";
-        content += "   <thead >";
-        content += "     <tr style='text-align: center;font-size: 32px;font-weight:bold;'>";
-        content += "        " + overview + " </tr>";
-        content += "   </thead>";
-        content += "   </table>";
+        String name = (String) data.get("myName");
+        String sex = (String) data.get("sex");
+        String portrait = (String) data.get("portrait");
+        Integer age = (Integer) data.get("age");
+        String birthday = (String) data.get("birthday");
+        String face = (String) data.get("face");
+        String school = (String) data.get("school");
+        String phone = (String) data.get("phone");
+        String email = (String) data.get("email");
+        Double gradePoint = (Double) data.get("gradePoint");
+        List<CourseManagement> courseList = (List<CourseManagement>) data.get("courseList");
+        List<Practice> practiceList = (List<Practice>) data.get("practiceList");
+        List<Honor> honorList = (List<Honor>) data.get("honorList");
 
-        content += "<table style='width: 100%;border-collapse: collapse;border: 10px solid red;'>";
-        content += " <tbody>";
 
-        for (int i = 0; i < attachList.size(); i++) {
-            content += "     <tr style='text-align: center;border: 1px solid black;font-size: 14px;'>";
-            content += "      " + attachList.get(i).get("title") + " ";
-            content += "     </tr>";
-            content += "     <tr style='text-align: center;border: 1px solid black; font-size: 14px;'>";
-            content += "            " + attachList.get(i).get("content") + " ";
-            content += "     </tr>";
+        content = "<!DOCTYPE html>" +
+                "<html lang='en'>" +
+                "<head>" +
+                "    <meta charset='UTF-8'/>" +
+                "    <title>简历</title>" +
+                "<style> html { font-family: 'SourceHanSansSC', 'Open Sans';}" +
+                "th {text-align:center}" +
+                "td  {text-align:center}" +
+                "</style>" +
+                "</head>" +
+                "" +
+                "" +
+                "<body height='1000' background= 'http://img0.baidu.com/it/u=3136419117,1072644237;fm=253'>" +
+                "" +
+                "" +
+                "<table border='1' align='center' cellpadding='1' width='660' height='1000'>" +
+                "" +
+                "    <tr>" +
+                "" +
+                "        <th colspan='7' bgcolor='BurlyWood' text-align='center'>个人简介</th>" +
+                "" +
+                "    </tr>" +
+                "" +
+                "" +
+                "    <tr>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>姓名:</th>" +
+                "" +
+                "        <td> " + name + "</td>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>年龄:</th>" +
+                "" +
+                "        <td>" + age + "</td>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>性别:</th>" +
+                "" +
+                "        <td>"+sex+"</td>" +
+                "" +
+                "        <td rowspan='3' width='100'>" +
+                "" +
+                "            <p>" +
+                "" +
+                "                <a href='https://www.baidu.com'>" +
+                "" +
+                "                    <img border='0'" +
+                "                         src='https://p3.ssl.qhimgs0.com/dr/200_200_60/t0158f3aca41a27eb03.png' height='50'/>" +
+                "" +
+                "                    </a>" +
+                "" +
+                "            </p>" +
+                "" +
+                "        </td>" +
+                "" +
+                "    </tr>" +
+                "" +
+                "" +
+                "    <tr>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>出生日期:</th>" +
+                "" +
+                "        <td>" + birthday + "</td>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>政治面貌:</th>" +
+                "" +
+                "        <td>" + face + "</td>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>学历:</th>" +
+                "" +
+                "        <td>" + school + "</td>" +
+                "" +
+                "    </tr>" +
+                "" +
+                "" +
+                "    <tr>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>专业:</th>" +
+                "" +
+                "        <td>山东大学软工</td>" +
+                "" +
+                "        <th bgcolor='BurlyWood'>邮箱:</th>" +
+                "        <td colspan='1'>" +
+                "            <p>" +
+                "                <a href='mailto:" + email + "'>" + email + " </a>" +
+                "            </p>" +
+                "        </td>" +
+                "        <th bgcolor='BurlyWood'>联系电话:</th>" +
+                "" +
+                "        <td>" + phone + "</td>" +
+                "        </tr>" +
+                "" +
+                "    <tr>" +
+                "" +
+                "        <th height='160' bgcolor='BurlyWood'>学习成绩:</th>" +
+                "" +
+                "        <td colspan='6'>";
+        content += "<p>"+"全科平均绩点："+gradePoint+"</p>";
+
+        content += "        </td>" +
+                "" +
+                "    </tr>" +
+                "" +
+                "" +
+                "    <tr>" +
+                "" +
+                "        <th height='160' bgcolor='BurlyWood'> 创新实践:</th>" +
+                "" +
+                "        <td colspan='6'>";
+        for (int i = 0; i < practiceList.size(); i++) {
+            Practice practice = practiceList.get(i);
+            content += "<p>" + practice.getpName() + practice.getpType() + " (指导老师:" + practice.getpTeacher() + ")" + "</p>";
         }
-        content += " </tbody>";
-        content += "   </table>";
-
-        content += "</body>";
-        content += "</html>";
+        content += "" + "</td>" +
+                "    </tr>" +
+                "" +
+                "" +
+                "    <tr>" +
+                "" +
+                "        <th height='160' bgcolor='BurlyWood'>获奖经历:</th>" +
+                "" +
+                "        <td colspan='6'>";
+        for (int i = 0; i < honorList.size(); i++) {
+            Honor honor =honorList.get(i);
+            content += "<p>" + DateTimeTool.parseDateTime(honor.getHonorDate(), "yyyy年MM月dd日 ") + "获" + honor.getHonorLevel() + "奖项：" + honor.getHonorName()+"</p>";
+        }
+        content += "" + "</td>" +
+                "    </tr>" +
+                "<tr>" +
+                "" +
+                "        <th height='160' bgcolor='BurlyWood'>专业课程:</th>" +
+                "" +
+                "        <td colspan='6'>";
+        for (int i = 0; i < courseList.size(); i++) {
+            content += "<p>" + courseList.get(i).getCourse().getCourseName() + "</p>";
+        }
+        content += "" + "</td>" +
+                "    </tr>" +
+                "" +
+                "</table>" +
+                "" +
+                "</body>" +
+                "" +
+                "" +
+                "</html>";
         return getPdfDataFromHtml(content);
     }
 
 
-    public List getScoreMapList(String studentId,String courseName) {
+    public List getScoreMapList(String studentId, String courseName) {
         List dataList = new ArrayList();
-        List<Score> sList = scoreRepository.findByNumNameCourseName(studentId,courseName);  //数据库查询操作
+        List<Score> sList = scoreRepository.findByNumNameCourseName(studentId, courseName);  //数据库查询操作
         if (sList == null || sList.size() == 0)
             return dataList;
         Score sc;
@@ -429,7 +590,7 @@ public class TeachController {
             m.put("courseNum", c.getCourseNum());
             m.put("courseName", c.getCourseName());
             m.put("mark", sc.getMark());
-            m.put("gradePoint",sc.getGradePoint());
+            m.put("gradePoint", sc.getGradePoint());
             dataList.add(m);
         }
         return dataList;
@@ -440,9 +601,9 @@ public class TeachController {
     public DataResponse scoreInit(@Valid @RequestBody DataRequest dataRequest) {
         String studentId = dataRequest.getString("studentNum");
         String courseName = dataRequest.getString("courseName");
-        if (studentId==null)studentId="";
-        if (courseName==null)courseName="";
-        List dataList = getScoreMapList(studentId,courseName);
+        if (studentId == null) studentId = "";
+        if (courseName == null) courseName = "";
+        List dataList = getScoreMapList(studentId, courseName);
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
     }
 
@@ -551,9 +712,9 @@ public class TeachController {
         }
         sc.setStudent(studentRepository.findById(studentId).get());  //设置属性
         sc.setCourse(courseRepository.findById(courseId).get());
-        if (mark==null)return CommonMethod.getReturnMessageError("未输入成绩");
+        if (mark == null) return CommonMethod.getReturnMessageError("未输入成绩");
         sc.setMark(mark);
-        double gradePoint=sc.getMark()>50?(sc.getMark()-50)/10.00:0;
+        double gradePoint = sc.getMark() > 50 ? (sc.getMark() - 50) / 10.00 : 0;
         sc.setGradePoint(gradePoint);
         scoreRepository.save(sc);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(sc.getId());  // 将记录的id返回前端
@@ -564,7 +725,7 @@ public class TeachController {
         //数据库查询操作
         List<Score> sList = scoreRepository.findByNumNameCourseName(numName, courseName);
 //        System.out.println(sList);
-        if (scoreOrder != null&&scoreOrder!="") {
+        if (scoreOrder != null && scoreOrder != "") {
             if (scoreOrder.equals("分数降序")) {
                 sList = scoreRepository.findByNumNameCourseNameScoreDescend(numName, courseName);
             } else if (scoreOrder.equals("分数升序")) {
@@ -602,9 +763,9 @@ public class TeachController {
         String numName = dataRequest.getString("numName");
         String courseName = dataRequest.getString("courseName");
         String scoreOrder = dataRequest.getString("scoreOrder");
-        if(numName==null)numName="";
-        if(courseName ==null)courseName = "";
-        if(scoreOrder ==null)scoreOrder = "";
+        if (numName == null) numName = "";
+        if (courseName == null) courseName = "";
+        if (scoreOrder == null) scoreOrder = "";
         List dataList = getStudentMapListForQuary(numName, courseName, scoreOrder);
         return CommonMethod.getReturnData(dataList);
     }
