@@ -36,6 +36,11 @@ uims:
           prop: phone
           label: 电话
         - type: opers
+          label: 信息统计
+          opers:
+            - name: stuInf
+              label: 信息统计
+        - type: opers
           label: 创新实践
           opers:
             - name: practice
@@ -802,3 +807,20 @@ uims:
         - type: date
           prop: activityDate
           label: 活动日期
+
+    - name: stuInf
+      type: form
+      title: 学生信息统计
+      item:
+        - type: text
+          prop: stuName
+          label: 姓名
+        - type: text
+          prop: gradePoint
+          label: 绩点
+        - type: text
+          prop: absenceCount
+          label: 缺勤次数
+        - type: text
+          prop: awardCount
+          label: 获奖次数
