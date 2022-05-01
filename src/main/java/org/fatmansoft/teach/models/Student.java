@@ -30,6 +30,7 @@ public class Student {
     private String mother;
     private String face;
     private String formerSchool;
+    private String portrait;
 
     public String getFormerSchool() {
         return formerSchool;
@@ -134,4 +135,13 @@ public class Student {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
+    }
+
 }

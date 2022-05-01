@@ -168,6 +168,9 @@ uims:
               label: 共青团员
             - value: 党员
               label: 党员
+        - type: input
+          prop: portrait
+          label: 自我描述
 
     - name: course
       type: table

@@ -150,6 +150,7 @@ public class TeachController {
             form.put("email",s.getEmail());
             form.put("father",s.getFather());
             form.put("mother",s.getMother());
+            form.put("portrait",s.getPortrait());
             if (s.getFace() != null) {
                 if (s.getFace().equals("群众")) {
                     form.put("face", "群众");
@@ -253,6 +254,7 @@ public class TeachController {
         String mother = CommonMethod.getString(form,"mother");
         String combination = CommonMethod.getString(form,"combination");
         String face = CommonMethod.getString(form,"face");
+        String portrait= CommonMethod.getString(form,"portrait");
         Student s= null;
         Optional<Student> op;
         if(id != null) {
@@ -282,6 +284,7 @@ public class TeachController {
         s.setMother(mother);
         s.setFace(face);
         s.setCombination(combination);
+        s.setPortrait(portrait);
         studentRepository.save(s);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(s.getId());  // 将记录的id返回前端
     }
