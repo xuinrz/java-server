@@ -24,10 +24,19 @@ public class Course {
     private String preCourse;//前置课程
     private String teacher;
     private String time;//上课时间
+    private String day;//上课日
     private String hours;//课时
     private String type;//课程类型
     private String place;//教室
     private Integer capacity=50;//课容量
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
 
     public Integer getCapacity() {
         return capacity;

@@ -14,6 +14,8 @@ uims:
       title: 日志管理
     - name: homework
       title: 作业信息
+    - name: table
+      title: 课表
   page:
     - name: student
       type: table
@@ -65,6 +67,11 @@ uims:
           opers:
             - name: courseManagement
               label: 课程管理
+        - type: opers
+          label: 课表
+          opers:
+            - name: table
+              label: 查看课表
         - type: opers
           label: 成绩
           opers:
@@ -282,14 +289,37 @@ uims:
           prop: capacity
           label: 课容量
         - type: input
-          prop: time
-          label: 上课时间
-        - type: input
           prop: place
           label: 教室
         - type: input
           prop: hours
           label: 课时
+        - type: select
+          prop: time
+          label: 上课节次
+          option:
+            - value: 第一节
+              label: 第一节
+            - value: 第二节
+              label: 第二节
+            - value: 第三节
+              label: 第三节
+            - value: 第四节
+              label: 第四节
+        - type: select
+          prop: day
+          label: 上课日
+          option:
+            - value: 周一
+              label: 周一
+            - value: 周二
+              label: 周二
+            - value: 周三
+              label: 周三
+            - value: 周四
+              label: 周四
+            - value: 周五
+              label: 周五
 
     - name: score
       type: table
@@ -824,3 +854,27 @@ uims:
         - type: text
           prop: awardCount
           label: 获奖次数
+
+    - name: table
+      type: table
+      title: 课表
+      showAdd: 0
+      item:
+        - type: text
+          prop: period
+          label: 上课时间
+        - type: text
+          prop: monday
+          label: 周一
+        - type: text
+          prop: tuesday
+          label: 周二
+        - type: text
+          prop: wednesday
+          label: 周三
+        - type: text
+          prop: thursday
+          label: 周四
+        - type: text
+          prop: friday
+          label: 周五

@@ -121,6 +121,7 @@ public class CourseController {
             form.put("hours", course.getHours());
             form.put("place", course.getPlace());
             form.put("capacity", course.getCapacity());
+            form.put("day",course.getDay());
         }
         return CommonMethod.getReturnData(form); //这里回传包含学生信息的Map对象
 
@@ -147,6 +148,7 @@ public class CourseController {
         String teacher = CommonMethod.getString(form, "teacher");
         String type = CommonMethod.getString(form, "type");
         String time = CommonMethod.getString(form, "time");
+        String day = CommonMethod.getString(form, "day");
         String hours = CommonMethod.getString(form, "hours");
         String place = CommonMethod.getString(form, "place");
         Integer capacity = CommonMethod.getInteger(form, "capacity");
@@ -170,6 +172,7 @@ public class CourseController {
         course.setCredit(credit);
         course.setType(type);
         course.setTime(time);
+        course.setDay(day);
         course.setHours(hours);
         course.setPlace(place);
         course.setCapacity(capacity);

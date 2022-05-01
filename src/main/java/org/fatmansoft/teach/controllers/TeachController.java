@@ -67,7 +67,7 @@ public class TeachController {
         Map m;
         String courseParas,studentNameParas,scoreParas,logParas,courseManagementParas,honorParas,stuInfParas;
 
-        String practiceParas,dailyParas;
+        String practiceParas,dailyParas,tableParas;
 
         for(int i = 0; i < sList.size();i++) {
             s = sList.get(i);
@@ -80,8 +80,10 @@ public class TeachController {
             practiceParas="model=practice&studentId="+s.getId();
             honorParas="model=honor&studentId="+s.getId();
             dailyParas = "model=daily&studentId="+s.getId();
+            tableParas = "model=table&studentId="+s.getId();
             stuInfParas = "model=stuInf&stuName="+s.getStudentName();
             m.put("stuInfParas",stuInfParas);
+            m.put("tableParas",tableParas);
             m.put("dailyParas",dailyParas);
             m.put("honorParas",honorParas);
             m.put("practiceParas",practiceParas);

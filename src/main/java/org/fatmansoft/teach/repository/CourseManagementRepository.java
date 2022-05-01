@@ -19,6 +19,9 @@ public interface CourseManagementRepository extends JpaRepository<CourseManageme
     @Query(value = " from CourseManagement s where (?1='' or (s.student.studentNum like %?1%) or (s.student.studentName like %?1%)) and (s.course.courseName like concat('%',?2,'%') or ?2='') ")
     List<CourseManagement> findByNumNameCourseName(String numName, String courseName);
 
+    @Query(value= "select cm.course from CourseManagement cm where cm.student.id=?1 or ?1=0")
+    List<Course> findCourseByStudentIdOrAll(Integer studentId);
+
     @Query(value= "from CourseManagement cm where (?1= cm.student.id)")
     List<CourseManagement> findByStudentIdInInf(Integer studentId);
 
