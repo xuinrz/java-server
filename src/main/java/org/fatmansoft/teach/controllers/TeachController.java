@@ -358,15 +358,8 @@ public class TeachController {
         Integer studentId = dataRequest.getInteger("studentId");
         // System.out.println(studentId);
         Map data = introduceService.getIntroduceDataMap2(studentId);
-        String content = "<!DOCTYPE html>";
-        content += "<html>";
-        content += "<head>";
-        content += "<style>";
-        content += "html { font-family: 'SourceHanSansSC', 'Open Sans';}";
-        content += "</style>";
-        content += "<meta charset='UTF-8' />";
-        content += "<title>Insert title here</title>";
-        content += "</head>";
+        String content ;
+
 
         String myName = (String) data.get("myName");
         String overview = (String) data.get("overview");
@@ -434,7 +427,7 @@ public class TeachController {
                 "</head>" +
                 "" +
                 "" +
-                "<body height='1000' background= 'http://img0.baidu.com/it/u=3136419117,1072644237;fm=253'>" +
+                "<body height='1000' background= 'https://img2.baidu.com/it/u=4033026646,1946038390;fm=253'>" +
                 "" +
                 "" +
                 "<table border='1' align='center' cellpadding='1' width='660' height='1000'>" +
@@ -464,10 +457,10 @@ public class TeachController {
                 "" +
                 "            <p>" +
                 "" +
-                "                <a href='https://www.baidu.com'>" +
+                "                <a href='https://xuinrz.github.io/'>" +
                 "" +
                 "                    <img border='0'" +
-                "                         src='https://p3.ssl.qhimgs0.com/dr/200_200_60/t0158f3aca41a27eb03.png' height='50'/>" +
+                "                         src='https://img2.baidu.com/it/u=4033026646,1946038390;fm=253' height='120'/>" +
                 "" +
                 "                    </a>" +
                 "" +
