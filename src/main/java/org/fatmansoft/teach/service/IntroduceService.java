@@ -67,12 +67,24 @@ public class IntroduceService {
                     courseContent += course.getCourse().getCourseName() + "  ";
             }
         }
+            String basicContent="性别："+s.getSex()+" | "+" 年龄："+s.getAge()+" | " + "出生日期" +
+                    "："+DateTimeTool.parseDateTime(s.getBirthday(), "yyyy年MM月dd日 ")+" | "+"政治面貌："+s.getFace()+"|"+
+                    " 联系电话："+s.getPhone()+" | " +"电子邮箱："+s.getEmail();
+
 
             Map data = new HashMap();
             data.put("myName", s.getStudentName());   // 学生信息
-            data.put("overview", "本人.是xzx他爸");  //学生基本信息综述
+            //data.put("overview", "本人.是xzx他爸");  //学生基本信息综述
             List attachList = new ArrayList();
             Map m;
+            m = new HashMap();
+            m.put("title", "个人简述");   //
+            m.put("content", s.getPortrait());  // 学生成绩综述
+            attachList.add(m);
+            m = new HashMap();
+            m.put("title", "基本信息");   //
+            m.put("content", basicContent);  // 学生成绩综述
+            attachList.add(m);
             m = new HashMap();
             m.put("title", "学习成绩");   //
             m.put("content", "成绩...4.5");  // 学生成绩综述
