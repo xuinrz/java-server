@@ -17,7 +17,7 @@ public class IntroduceService {
     @Autowired
     private HonorRepository honorRepository;
     @Autowired
-    private CourseManagementRepository courseRepository;
+    private ScoreRepository courseRepository;
     @Autowired
     private StuInfRepository stuInfRepository;
 
@@ -55,8 +55,8 @@ public class IntroduceService {
 
         String courseContent = "";
 
-        List<CourseManagement> courseList = courseRepository.findByStudentIdInInf(studentId);  //数据库查询操作
-        CourseManagement course;
+        List<Score> courseList = courseRepository.findByStudentIdInInf(studentId);  //数据库查询操作
+        Score course;
         if (courseList == null || courseList.size() == 0)
             courseContent = "无";
         else {
@@ -117,7 +117,7 @@ public class IntroduceService {
 
         List<Honor> honorList = honorRepository.findHonorListByStudentId(studentId);
 
-        List<CourseManagement> courseList = courseRepository.findByStudentIdInInf(studentId);
+        List<Score> courseList = courseRepository.findByStudentIdInInf(studentId);
 
         Map data = new HashMap();
         data.put("age", s.getAge()  );

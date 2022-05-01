@@ -6,12 +6,12 @@ uims:
       title: 学习管理
     - name: score
       title: 成绩管理
-    - name: practice
-      title: 创新实践管理
-    - name: honor
-      title: 荣誉管理
-    - name: log
-      title: 日志管理
+#    - name: practice
+#      title: 创新实践管理
+#    - name: honor
+#      title: 荣誉管理
+#    - name: log
+#      title: 日志管理
     - name: courseManagement
       title: 选课信息
     - name: table
@@ -42,31 +42,12 @@ uims:
           opers:
             - name: stuInf
               label: 信息统计
-        - type: opers
-          label: 创新实践
-          opers:
-            - name: practice
-              label: 创新实践
-        - type: opers
-          label: 荣誉
-          opers:
-            - name: honor
-              label: 荣誉
-        - type: opers
-          label: 日常管理
-          opers:
-            - name: daily
-              label: 日常管理
-        - type: opers
-          label: 日志管理
-          opers:
-            - name: log
-              label: 日志管理
+
         - type: opers
           label: 课程
           opers:
             - name: courseManagement
-              label: 课程管理
+              label: 我的课程
         - type: opers
           label: 课表
           opers:
@@ -77,6 +58,17 @@ uims:
           opers:
             - name: score
               label: 我的成绩
+        - type: opers
+          label: 创新实践
+          opers:
+            - name: practice
+              label: 创新实践
+            - name: honor
+              label: 荣誉管理
+            - name: daily
+              label: 日常管理
+            - name: log
+              label: 日志管理
         - type: opers
           label: 操作
           opers:
@@ -623,7 +615,7 @@ uims:
           label: 请输入姓名
     - name: attendInfEdit
       type: form
-      title: 考勤信息2
+      title: 考勤信息编辑
       item:
 
         - type: select
@@ -670,7 +662,7 @@ uims:
           label: 请输入课程名
     - name: courseCenterEdit
       type: form
-      title: 课程中心2
+      title: 课程中心编辑
       item:
         - type: select
           prop: courseId
@@ -705,9 +697,6 @@ uims:
         - type: text
           prop: credit
           label: 学分
-        - type: text
-          prop: courseHour
-          label: 学时
         - type: opers
           label: 操作
           opers:

@@ -5,10 +5,7 @@ import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import org.fatmansoft.teach.models.*;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.repository.CourseRepository;
-import org.fatmansoft.teach.repository.CourseManagementRepository;
-import org.fatmansoft.teach.repository.StudentRepository;
-import org.fatmansoft.teach.repository.CourseManagementRepository;
+import org.fatmansoft.teach.repository.*;
 
 import org.fatmansoft.teach.service.IntroduceService;
 import org.fatmansoft.teach.util.CommonMethod;
@@ -35,15 +32,15 @@ public class CourseManagementController {
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
-    private CourseManagementRepository courseManagementRepository;
+    private ScoreRepository scoreRepository;
 
 
     public List getCourseManagementMapList(String numName,String courseName) {
         List dataList = new ArrayList();
-        List<CourseManagement> sList = courseManagementRepository.findByNumNameCourseName(numName,courseName);  //数据库查询操作
+        List<Score> sList = scoreRepository.findByNumNameCourseName(numName,courseName);  //数据库查询操作
         if(sList == null || sList.size() == 0)
             return dataList;
-        CourseManagement cm;
+        Score cm;
         Course c;
         Student s;
         Map m;
@@ -75,11 +72,11 @@ public class CourseManagementController {
     }
     public List getCourseManagementMapListForQuery(String numName,String courseName) {
         List dataList = new ArrayList();
-        List<CourseManagement> courseManagementList = courseManagementRepository.findByNumNameCourseName(numName,courseName);  //数据库查询操作
+        List<Score> courseManagementList = scoreRepository.findByNumNameCourseName(numName,courseName);  //数据库查询操作
         if (courseManagementList == null || courseManagementList.size() == 0)
             return dataList;
         Student s;
-        CourseManagement cm;
+        Score cm;
         Course c;
         Map m;
         for(int i = 0; i < courseManagementList.size();i++) {
@@ -120,16 +117,16 @@ public class CourseManagementController {
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse courseManagementDelete(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");  //获取id值
-        CourseManagement s= null;
-        Optional<CourseManagement> op;
+        Score s= null;
+        Optional<Score> op;
         if(id != null) {
-            op= courseManagementRepository.findById(id);   //查询获得实体对象
+            op= scoreRepository.findById(id);   //查询获得实体对象
             if(op.isPresent()) {
                 s = op.get();
             }
         }
         if(s != null) {
-            courseManagementRepository.delete(s);    //数据库永久删除
+            scoreRepository.delete(s);    //数据库永久删除
         }
         return CommonMethod.getReturnMessageOK();  //通知前端操作正常
     }
@@ -140,12 +137,12 @@ public class CourseManagementController {
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseManagementEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
-        CourseManagement cm = null;
+        Score cm = null;
         Student s;
         Course c;
-        Optional<CourseManagement> op;
+        Optional<Score> op;
         if (id != null) {
-            op = courseManagementRepository.findById(id);
+            op = scoreRepository.findById(id);
             if (op.isPresent()) {
                 cm = op.get();
             }
@@ -185,7 +182,7 @@ public class CourseManagementController {
     }
 
     public synchronized Integer getNewCourseManagementId() {
-        Integer id = courseManagementRepository.getMaxId();  // 查询最大的id
+        Integer id = scoreRepository.getMaxId();  // 查询最大的id
         if (id == null)
             id = 1;
         else
@@ -202,28 +199,28 @@ public class CourseManagementController {
         Integer id = CommonMethod.getInteger(form, "id");
         Integer studentId = CommonMethod.getInteger(form, "studentId");
         Integer courseId = CommonMethod.getInteger(form, "courseId");
-        CourseManagement cm = null;
+        Score cm = null;
         Student s = null;
         Course c = null;
-        Optional<CourseManagement> op;
+        Optional<Score> op;
         if (id != null) {
-            op = courseManagementRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
+            op = scoreRepository.findById(id);  //查询对应数据库中主键为id的值的实体对象
             if (op.isPresent()) {
                 cm = op.get();
             }
         }
         if (cm == null) {
-            cm = new CourseManagement();   //不存在 创建实体对象
+            cm = new Score();   //不存在 创建实体对象
             id = getNewCourseManagementId(); //获取鑫的主键，这个是线程同步问题;
             cm.setId(id);  //设置新的id
         }
         cm.setStudent(studentRepository.findById(studentId).get());  //设置属性
         cm.setCourse(courseRepository.findById(courseId).get());
-        Boolean isExist=(courseManagementRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+        Boolean isExist=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
         if(isExist)return CommonMethod.getReturnMessageError("该选课记录已存在");
-        if(courseManagementRepository.countByCourseId(courseRepository.findById(courseId).get().getId())==courseRepository.findById(courseId).get().getCapacity())
+        if(scoreRepository.countByCourseId(courseRepository.findById(courseId).get().getId())==courseRepository.findById(courseId).get().getCapacity())
         return CommonMethod.getReturnMessageError("课程已满，无法选择");
-        courseManagementRepository.save(cm);  //新建和修改都调用save方法
+        scoreRepository.save(cm);  //新建和修改都调用save方法
         return CommonMethod.getReturnData(cm.getId());  // 将记录的id返回前端
     }
 

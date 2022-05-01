@@ -2,14 +2,10 @@ package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.Course;
 import org.fatmansoft.teach.models.CourseCenter;
-import org.fatmansoft.teach.models.CourseManagement;
 import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.repository.CourseCenterRepository;
-import org.fatmansoft.teach.repository.CourseManagementRepository;
-import org.fatmansoft.teach.repository.CourseRepository;
-import org.fatmansoft.teach.repository.StudentRepository;
+import org.fatmansoft.teach.repository.*;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +23,7 @@ public class CourseController {
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
-    private CourseManagementRepository courseManagementRepository;
+    private ScoreRepository courseManagementRepository;
 
 
     public List getCourseMapList(String numName) {

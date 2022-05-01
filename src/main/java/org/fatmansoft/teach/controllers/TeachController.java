@@ -410,7 +410,7 @@ public class TeachController {
         String phone = (String) data.get("phone");
         String email = (String) data.get("email");
         Double gradePoint = (Double) data.get("gradePoint");
-        List<CourseManagement> courseList = (List<CourseManagement>) data.get("courseList");
+        List<Score> courseList = (List<Score>) data.get("courseList");
         List<Practice> practiceList = (List<Practice>) data.get("practiceList");
         List<Honor> honorList = (List<Honor>) data.get("honorList");
 
