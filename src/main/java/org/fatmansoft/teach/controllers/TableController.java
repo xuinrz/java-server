@@ -35,10 +35,8 @@ public class TableController {
             return dataList;
         Course course;
         Map m=null;
-
         String[] time={"第一节","第二节","第三节","第四节"};
         String[] period={"8:00-9:50","10:00-12:00","14:00-15:50","16:10-18:00"};
-
         for(int j = 0;j< time.length;j++) {
         m = new HashMap();
         m.put("period",period[j]);
@@ -50,8 +48,6 @@ public class TableController {
             }
             dataList.add(m);
         }
-
-
         return dataList;
     }
 

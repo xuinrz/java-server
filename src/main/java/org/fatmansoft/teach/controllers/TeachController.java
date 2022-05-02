@@ -359,47 +359,6 @@ public class TeachController {
         // System.out.println(studentId);
         Map data = introduceService.getIntroduceDataMap2(studentId);
         String content ;
-
-
-        String myName = (String) data.get("myName");
-        String overview = (String) data.get("overview");
-        List<Map> attachList = (List) data.get("attachList");
-
-////        content += getHtmlString();
-//        content += "<body>";
-//
-//        content += "<table style='width: 100%;'>";
-//        content += "   <thead >";
-//        content += "     <tr style='text-align: center;font-size: 32px;font-weight:bold;'>";
-//        content += "        " + myName + " </tr>";
-//        content += "   </thead>";
-//        content += "   </table>";
-//
-//        content += "<table style='width: 100%;'>";
-//        content += "   <thead >";
-//        content += "     <tr style='text-align: center;font-size: 32px;font-weight:bold;'>";
-//        content += "        " + overview + " </tr>";
-//        content += "   </thead>";
-//        content += "   </table>";
-//
-//        content += "<table style='width: 100%;border-collapse: collapse;border: 10px solid red;'>";
-//        content += " <tbody>";
-//
-//        for (int i = 0; i < attachList.size(); i++) {
-//            content += "     <tr style='text-align: center;border: 1px solid black;font-size: 14px;'>";
-//            content += "      " + attachList.get(i).get("title") + " ";
-//            content += "     </tr>";
-//            content += "     <tr style='text-align: center;border: 1px solid black; font-size: 14px;'>";
-//            content += "            " + attachList.get(i).get("content") + " ";
-//            content += "     </tr>";
-//        }
-//        content += " </tbody>";
-//        content += "   </table>";
-//
-//        content += "</body>";
-//        content += "</html>";
-
-
         String name = (String) data.get("myName");
         String sex = (String) data.get("sex");
         String portrait = (String) data.get("portrait");
@@ -413,8 +372,6 @@ public class TeachController {
         List<Score> courseList = (List<Score>) data.get("courseList");
         List<Practice> practiceList = (List<Practice>) data.get("practiceList");
         List<Honor> honorList = (List<Honor>) data.get("honorList");
-
-
         content = "<!DOCTYPE html>" +
                 "<html lang='en'>" +
                 "<head>" +

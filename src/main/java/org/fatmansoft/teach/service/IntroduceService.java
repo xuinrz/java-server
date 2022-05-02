@@ -71,11 +71,28 @@ public class IntroduceService {
             String basicContent="性别："+s.getSex()+" | "+" 年龄："+s.getAge()+" | " + "出生日期" +
                     "："+DateTimeTool.parseDateTime(s.getBirthday(), "yyyy年MM月dd日 ")+" | "+"政治面貌："+s.getFace()+"|"+
                     " 联系电话："+s.getPhone()+" | " +"电子邮箱："+s.getEmail();
+        String name=s.getStudentName();
+        List<Score> scoreList=stuInfRepository.findScoreByStudentName(name);
+        Score score;
+        double sum=0,totleCredit=0;
+        int absenceCount,awardCount;
+        for(int i=0;i<scoreList.size();i++){
+
+            score=scoreList.get(i);
+
+            Integer credit=score.getCourse().getCredit();
+            if (credit==null)continue;
+            totleCredit+=credit;
+            if (score.getGradePoint()==null)continue;
+            sum+=credit*score.getGradePoint();
+        }
+        double x=sum/totleCredit;
+        if(totleCredit==0)x=0;
 
 
             Map data = new HashMap();
             data.put("myName", s.getStudentName());   // 学生信息
-            //data.put("overview", "本人.是xzx他爸");  //学生基本信息综述
+            data.put("overview", "本人.....");  //学生基本信息综述
             List attachList = new ArrayList();
             Map m;
             m = new HashMap();
@@ -88,7 +105,7 @@ public class IntroduceService {
             attachList.add(m);
             m = new HashMap();
             m.put("title", "学习成绩");   //
-            m.put("content", "成绩...4.5");  // 学生成绩综述
+            m.put("content", "全科绩点："+x);  // 学生成绩综述
             attachList.add(m);
             m = new HashMap();
             m.put("title", "创新实践");
@@ -142,11 +159,14 @@ public class IntroduceService {
 
             score=scoreList.get(i);
 
-            int credit=score.getCourse().getCredit();
+            Integer credit=score.getCourse().getCredit();
+            if (credit==null)continue;
             totleCredit+=credit;
+            if (score.getGradePoint()==null)continue;
             sum+=credit*score.getGradePoint();
         }
         double x=sum/totleCredit;
+        if(totleCredit==0)x=0;
         data.put("gradePoint",x);
 
         return data;
