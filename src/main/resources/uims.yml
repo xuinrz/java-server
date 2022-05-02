@@ -3,7 +3,7 @@ uims:
     - name: student
       title: 学生管理
     - name: course
-      title: 学习管理
+      title: 课程管理
     - name: score
       title: 成绩管理
 #    - name: practice
@@ -178,7 +178,7 @@ uims:
 
     - name: course
       type: table
-      title: 学习管理
+      title: 课程管理
       showAdd: 1
       item:
         - type: text
