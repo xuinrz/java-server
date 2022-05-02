@@ -253,7 +253,7 @@ uims:
               label: 学分升序
     - name: courseEdit
       type: form
-      title: 学习信息
+      title: 课程信息
       item:
         - type: input
           prop: courseNum
