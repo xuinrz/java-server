@@ -52,7 +52,7 @@ uims:
           label: 课表
           opers:
             - name: table
-              label: 查看课表
+              label: 我的课表
         - type: opers
           label: 成绩
           opers:
