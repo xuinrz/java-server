@@ -4,9 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(	name = "student",
+@Table(name = "student",
         uniqueConstraints = {
         })
 public class Student {
@@ -16,7 +17,8 @@ public class Student {
     @NotBlank
     @Size(max = 20)
     private String studentNum;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
+    private List<Score> scoreList;
     @Size(max = 50)
     private String studentName;
     @Size(max = 2)
@@ -31,6 +33,15 @@ public class Student {
     private String face;
     private String formerSchool;
     private String portrait;
+
+
+    public List<Score> getScoreList() {
+        return scoreList;
+    }
+
+    public void setScoreList(List<Score> scoreList) {
+        this.scoreList = scoreList;
+    }
 
     public String getFormerSchool() {
         return formerSchool;

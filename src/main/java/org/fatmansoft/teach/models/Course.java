@@ -1,10 +1,9 @@
 package org.fatmansoft.teach.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(	name = "course",
@@ -16,7 +15,8 @@ public class Course {
     @NotBlank
     @Size(max = 20)
     private String courseNum;
-
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "course")
+    private List<Score> scoreList;
     @Size(max = 50)
     private String courseName;
     private Integer credit;//学分
@@ -29,6 +29,14 @@ public class Course {
     private String type;//课程类型
     private String place;//教室
     private Integer capacity=50;//课容量
+
+    public List<Score> getScoreList() {
+        return scoreList;
+    }
+
+    public void setScoreList(List<Score> scoreList) {
+        this.scoreList = scoreList;
+    }
 
     public String getDay() {
         return day;
