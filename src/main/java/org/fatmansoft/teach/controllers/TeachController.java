@@ -106,7 +106,7 @@ public class TeachController {
         return dataList;
     }
 
-    //student页面初始化方法
+    //页面初始化方法
     //Table界面初始是请求列表的数据，这里缺省查出所有学生的信息，传递字符“”给方法getStudentMapList，返回所有学生数据，
     @PostMapping("/studentInit")
     @PreAuthorize("hasRole('ADMIN')")

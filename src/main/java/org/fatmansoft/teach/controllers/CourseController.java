@@ -119,7 +119,7 @@ public class CourseController {
             form.put("capacity", course.getCapacity());
             form.put("day",course.getDay());
         }
-        return CommonMethod.getReturnData(form); //这里回传包含学生信息的Map对象
+        return CommonMethod.getReturnData(form);
 
     }
 
@@ -131,6 +131,7 @@ public class CourseController {
             id = id + 1;
         return id;
     }
+
 
     @PostMapping("/courseEditSubmit")
     @PreAuthorize(" hasRole('ADMIN')")

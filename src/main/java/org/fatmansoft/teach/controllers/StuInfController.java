@@ -34,11 +34,14 @@ public class StuInfController {
 
             score=scoreList.get(i);
 
-            int credit=score.getCourse().getCredit();
+            Integer credit=score.getCourse().getCredit();
+            if (credit==null)continue;
             totleCredit+=credit;
+            if (score.getGradePoint()==null)continue;
             sum+=credit*score.getGradePoint();
         }
         double x=sum/totleCredit;
+        if(totleCredit==0)x=0;
         absenceCount= stuInfRepository.findAbsenceCountByStudentName(name);
         awardCount=stuInfRepository.findAwardCountByStudentName(name);
         Map m =new HashMap();
