@@ -19,7 +19,7 @@ public interface DailyRepository extends JpaRepository<Daily,Integer> {
     @Query(value = "select max(id) from Daily  ")
     Integer getMaxId();
 
-    @Query(value = "from Daily d where (d.student.id =?1 or ?1 =5) ")
+    @Query(value = "from Daily d where (d.student.id =?1) ")
     List<Daily> findDailyListByStudentId(Integer studentId);
 
 
