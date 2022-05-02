@@ -42,7 +42,6 @@ uims:
           opers:
             - name: stuInf
               label: 信息统计
-
         - type: opers
           label: 课程
           opers:
