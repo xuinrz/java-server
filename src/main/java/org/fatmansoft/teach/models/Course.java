@@ -1,10 +1,11 @@
 package org.fatmansoft.teach.models;
 
+import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
-
+@Data
 @Entity
 @Table(	name = "course",
         uniqueConstraints = {
