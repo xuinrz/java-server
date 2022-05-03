@@ -45,7 +45,7 @@ public class StuInfController {
         absenceCount= stuInfRepository.findAbsenceCountByStudentName(name);
         awardCount=stuInfRepository.findAwardCountByStudentName(name);
         Map m =new HashMap();
-        m.put("gradePoint",x);
+        m.put("gradePoint",(String.format("%.2f", x)));
         m.put("stuName",name);
         m.put("absenceCount",absenceCount);
         m.put("awardCount",awardCount);

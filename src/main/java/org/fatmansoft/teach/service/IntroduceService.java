@@ -105,7 +105,7 @@ public class IntroduceService {
             attachList.add(m);
             m = new HashMap();
             m.put("title", "学习成绩");   //
-            m.put("content", "全科绩点："+x);  // 学生成绩综述
+            m.put("content", "全科绩点："+(String.format("%.2f", x)));  // 学生成绩综述
             attachList.add(m);
             m = new HashMap();
             m.put("title", "创新实践");
@@ -167,7 +167,7 @@ public class IntroduceService {
         }
         double x=sum/totleCredit;
         if(totleCredit==0)x=0;
-        data.put("gradePoint",x);
+        data.put("gradePoint",(String.format("%.2f", x)));
 
         return data;
     }

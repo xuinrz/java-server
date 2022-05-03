@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public interface StuInfRepository extends JpaRepository<Score,Integer> {
     @Query(value="from Score s where s.student.studentName=?1 ")
     List<Score> findScoreByStudentName(String name);
