@@ -122,6 +122,30 @@ public class Course {
         return courseName;
     }
 
+    public List<CourseCenter> getCourseCenterList() {
+        return courseCenterList;
+    }
+
+    public void setCourseCenterList(List<CourseCenter> courseCenterList) {
+        this.courseCenterList = courseCenterList;
+    }
+
+    public List<AttendInf> getAttendInfList() {
+        return attendInfList;
+    }
+
+    public void setAttendInfList(List<AttendInf> attendInfList) {
+        this.attendInfList = attendInfList;
+    }
+
+    public List<Homework> getHomeworkList() {
+        return homeworkList;
+    }
+
+    public void setHomeworkList(List<Homework> homeworkList) {
+        this.homeworkList = homeworkList;
+    }
+
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
