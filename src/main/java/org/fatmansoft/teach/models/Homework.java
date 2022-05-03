@@ -11,11 +11,11 @@ public class Homework {
     @Id
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "courseId")
     private Course course;
 

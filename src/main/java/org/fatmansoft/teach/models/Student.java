@@ -19,6 +19,14 @@ public class Student {
     private String studentNum;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
     private List<Score> scoreList;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
+    private List<Daily> dailyList;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
+    private List<Honor> honorList;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
+    private List<Log> logList;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
+    private List<Practice> practiceList;
     @Size(max = 50)
     private String studentName;
     @Size(max = 2)
@@ -34,6 +42,38 @@ public class Student {
     private String formerSchool;
     private String portrait;
 
+
+    public List<Daily> getDailyList() {
+        return dailyList;
+    }
+
+    public void setDailyList(List<Daily> dailyList) {
+        this.dailyList = dailyList;
+    }
+
+    public List<Honor> getHonorList() {
+        return honorList;
+    }
+
+    public void setHonorList(List<Honor> honorList) {
+        this.honorList = honorList;
+    }
+
+    public List<Log> getLogList() {
+        return logList;
+    }
+
+    public void setLogList(List<Log> logList) {
+        this.logList = logList;
+    }
+
+    public List<Practice> getPracticeList() {
+        return practiceList;
+    }
+
+    public void setPracticeList(List<Practice> practiceList) {
+        this.practiceList = practiceList;
+    }
 
     public List<Score> getScoreList() {
         return scoreList;

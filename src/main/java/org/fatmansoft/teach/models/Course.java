@@ -18,6 +18,13 @@ public class Course {
     private String courseNum;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "course")
     private List<Score> scoreList;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "course")
+    private List<CourseCenter> courseCenterList;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "course")
+    private List<AttendInf> attendInfList;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "course")
+    private List<Homework> homeworkList;
+
     @Size(max = 50)
     private String courseName;
     private Integer credit;//学分

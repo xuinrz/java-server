@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class CourseCenter {
     @Id
     private Integer id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "courseId")
     private Course course;
     private String textbook;
