@@ -13,7 +13,7 @@ public class Honor {
     @Id
     private Integer id;
 
-   @ManyToOne(cascade = CascadeType.ALL)
+   @ManyToOne
     @JoinColumn(name = "StudentId")
     private Student student;
 

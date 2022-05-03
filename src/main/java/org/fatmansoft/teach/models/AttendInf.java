@@ -10,10 +10,10 @@ public class AttendInf {
     @Id
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="studentId")
     private Student student;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name= "courseId")
     private Course course;
 

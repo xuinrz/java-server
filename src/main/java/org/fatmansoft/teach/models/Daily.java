@@ -13,7 +13,7 @@ public class Daily {
 
 
 
-   @ManyToOne(cascade = CascadeType.ALL)
+   @ManyToOne
     @JoinColumn(name = "StudentId")
     private Student student;
 

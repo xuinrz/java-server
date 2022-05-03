@@ -19,7 +19,7 @@ public class Log
     private String matters;
     private String category;
 
-   @ManyToOne(cascade = CascadeType.ALL)
+   @ManyToOne
     @JoinColumn(name = "StudentId")
     private Student student;
 
