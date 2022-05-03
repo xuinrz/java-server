@@ -19,8 +19,8 @@ public class Log
     private String matters;
     private String category;
 
-    @ManyToOne
-    @JoinColumn(name = "studentId")
+   @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StudentId")
     private Student student;
 
     public Integer getId() {
