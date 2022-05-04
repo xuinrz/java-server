@@ -360,15 +360,16 @@ public class TeachController {
         String content ;
 
         String name = (String) data.get("myName");
-        String sex = (String) data.get("sex");
-        String portrait = (String) data.get("portrait");
-        Integer age = (Integer) data.get("age");
-        String birthday = (String) data.get("birthday");
-        String face = (String) data.get("face");
-        String school = (String) data.get("school");
-        String phone = (String) data.get("phone");
-        String email = (String) data.get("email");
-        String gradePoint = (String) data.get("gradePoint");
+        if(name==null)name="";
+        String sex = (String) data.get("sex");        if(name==null)name="";
+        String portrait = (String) data.get("portrait");        if(portrait==null)portrait="";
+        String age = ((Integer) data.get("age")).toString();        if(age==null)age="";
+        String birthday = (String) data.get("birthday");        if(birthday==null)birthday="";
+        String face = (String) data.get("face");        if(face==null)face="";
+        String school = (String) data.get("school");        if(school==null)school="";
+        String phone = (String) data.get("phone");        if(phone==null)phone="";
+        String email = (String) data.get("email");        if(email==null)email="";
+        String gradePoint = (String) data.get("gradePoint");        if(gradePoint==null)gradePoint="";
         List<Score> courseList = (List<Score>) data.get("courseList");
         List<Practice> practiceList = (List<Practice>) data.get("practiceList");
         List<Honor> honorList = (List<Honor>) data.get("honorList");
@@ -414,12 +415,7 @@ public class TeachController {
                 "" +
                 "            <p>" +
                 "" +
-                "                <a href='https://xuinrz.github.io/'>" +
-                "" +
-                "                    <img border='0'" +
-                "                         src='https://img2.baidu.com/it/u=4033026646,1946038390;fm=253' height='120'/>" +
-                "" +
-                "                    </a>" +
+                "                <a href='https://xuinrz.github.io/'><img border='0' src='https://xuinrz.github.io/Swiper/gogo.png' height='120'/></a>" +
                 "" +
                 "            </p>" +
                 "" +
