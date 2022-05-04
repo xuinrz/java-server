@@ -356,9 +356,9 @@ public class TeachController {
     @PostMapping("/getStudentIntroducePdf")
     public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
-        // System.out.println(studentId);
         Map data = introduceService.getIntroduceDataMap2(studentId);
         String content ;
+
         String name = (String) data.get("myName");
         String sex = (String) data.get("sex");
         String portrait = (String) data.get("portrait");
@@ -368,7 +368,7 @@ public class TeachController {
         String school = (String) data.get("school");
         String phone = (String) data.get("phone");
         String email = (String) data.get("email");
-        Double gradePoint = (Double) data.get("gradePoint");
+        String gradePoint = (String) data.get("gradePoint");
         List<Score> courseList = (List<Score>) data.get("courseList");
         List<Practice> practiceList = (List<Practice>) data.get("practiceList");
         List<Honor> honorList = (List<Honor>) data.get("honorList");
