@@ -127,7 +127,7 @@ public class IntroduceService {
     public Map getIntroduceDataMap2(Integer studentId) {
 
 
-//        if(studentId==null)studentId=1;
+        if(studentId==null)studentId=1;
         Student s = studentRepository.findById(studentId).get();
 
         List<Practice> practiceList = practiceRepository.findPracticeListByStudentId(studentId);

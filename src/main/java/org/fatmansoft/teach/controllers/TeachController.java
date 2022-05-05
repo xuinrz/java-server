@@ -380,6 +380,7 @@ public class TeachController {
         List<Score> courseList = (List<Score>) data.get("courseList");
         List<Practice> practiceList = (List<Practice>) data.get("practiceList");
         List<Honor> honorList = (List<Honor>) data.get("honorList");
+        // region
         content = "<!DOCTYPE html>" +
                 "<html lang='en'>" +
                 "<head>" +
@@ -518,6 +519,7 @@ public class TeachController {
                 "" +
                 "" +
                 "</html>";
+        //endregion
         return getPdfDataFromHtml(content);
     }
 
