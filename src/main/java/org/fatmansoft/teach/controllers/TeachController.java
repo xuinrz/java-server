@@ -49,7 +49,7 @@ public class TeachController {
     @Autowired
     private ResourceLoader resourceLoader;
     private FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
-
+    static private Integer id;
     //getStudentMapList 查询所有学号或姓名与numName相匹配的学生信息，并转换成Map的数据格式存放到List
     //
     // Map 对象是存储数据的集合类，框架会自动将Map转换程用于前后台传输数据的Json对象，Map的嵌套结构和Json的嵌套结构类似，
@@ -328,7 +328,8 @@ public class TeachController {
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse getStudentIntroduceData(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
-        Map data = introduceService.getIntroduceDataMap(studentId);
+        if(studentId!=null)id=studentId;
+        Map data = introduceService.getIntroduceDataMap(id);
         return CommonMethod.getReturnData(data);  //返回前端个人简历数据
     }
 
@@ -364,8 +365,9 @@ public class TeachController {
     public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
         Map data = introduceService.getIntroduceDataMap2(studentId);
-        String content ;
-
+//        String content = (String)data.get("html");
+//        System.out.println(content.substring(1,10));
+//region
         String name = (String) data.get("myName");
         if(name==null)name="";
         String sex = (String) data.get("sex");        if(name==null)name="";
@@ -381,7 +383,7 @@ public class TeachController {
         List<Practice> practiceList = (List<Practice>) data.get("practiceList");
         List<Honor> honorList = (List<Honor>) data.get("honorList");
         // region
-        content = "<!DOCTYPE html>" +
+        String content = "<!DOCTYPE html>" +
                 "<html lang='en'>" +
                 "<head>" +
                 "    <meta charset='UTF-8'/>" +
@@ -667,11 +669,14 @@ public class TeachController {
         }
         sc.setStudent(studentRepository.findById(studentId).get());  //设置属性
         sc.setCourse(courseRepository.findById(courseId).get());
+        Boolean isChosen=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+        if(isChosen) {
         if (mark == null) return CommonMethod.getReturnMessageError("未输入成绩");
         sc.setMark(mark);
         double gradePoint = sc.getMark() > 50 ? (sc.getMark() - 50) / 10.00 : 0;
         sc.setGradePoint(gradePoint);
-        scoreRepository.save(sc);  //新建和修改都调用save方法
+        scoreRepository.save(sc);}  //新建和修改都调用save方法
+        else return CommonMethod.getReturnMessageError("该学生未选择该科目");
         return CommonMethod.getReturnData(sc.getId());  // 将记录的id返回前端
     }
 
