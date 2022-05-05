@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student,Integer> {
-    Optional<Student> findByStudentNum(String studentNum);
+    Student findByStudentNum(String studentNum);
     List<Student> findByStudentName(String studentName);
 
     @Query(value = "select max(id) from Student  ")
