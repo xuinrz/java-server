@@ -361,7 +361,7 @@ uims:
               label: 低于60分
     - name: scoreEdit
       type: form
-      title: 学生信息
+      title: 成绩信息
       item:
         - type: select
           prop: studentId
@@ -712,7 +712,7 @@ uims:
           label: 请输入课程名
     - name: courseManagementEdit
       type: form
-      title: 课程信息
+      title: 选课信息
       item:
         - type: select
           prop: studentId
