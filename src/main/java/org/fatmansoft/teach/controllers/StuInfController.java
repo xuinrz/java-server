@@ -36,8 +36,9 @@ public class StuInfController {
 
             Integer credit=score.getCourse().getCredit();
             if (credit==null)continue;
-            totleCredit+=credit;
             if (score.getGradePoint()==null)continue;
+            totleCredit+=credit;
+
             sum+=credit*score.getGradePoint();
         }
         double x=sum/totleCredit;
