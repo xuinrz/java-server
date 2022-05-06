@@ -13,7 +13,7 @@ uims:
 #    - name: log
 #      title: 日志管理
     - name: courseManagement
-      title: 选课信息
+      title: 选课管理
     - name: table
       title: 课表
   page:
@@ -678,7 +678,7 @@ uims:
 
     - name: courseManagement
       type: table
-      title: 选课信息
+      title: 选课管理
       showAdd: 1
       item:
         - type: text
