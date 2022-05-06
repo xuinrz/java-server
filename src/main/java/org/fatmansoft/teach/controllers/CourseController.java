@@ -204,6 +204,11 @@ public class CourseController {
             m.put("credit", course.getCredit());
             m.put("teacher", course.getTeacher());
             m.put("type", course.getType());
+            Integer selected = courseManagementRepository.countByCourseId(course.getId());
+            if(selected==null)selected=0;
+            Integer capacity =course.getCapacity();
+            if (capacity==null)capacity=-1;
+            m.put("capacity", selected + "/" + ((capacity==-1)?"待定":capacity));
             dataList.add(m);
         }
         return dataList;
