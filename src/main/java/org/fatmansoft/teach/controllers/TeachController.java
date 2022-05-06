@@ -712,6 +712,7 @@ public class TeachController {
             m.put("courseNum", c.getCourseNum());
             m.put("courseName", c.getCourseName());
             m.put("mark", sc.getMark());
+            m.put("gradePoint", sc.getGradePoint());
             dataList.add(m);
         }
         return dataList;

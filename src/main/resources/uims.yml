@@ -58,7 +58,7 @@ uims:
             - name: score
               label: 我的成绩
         - type: opers
-          label: 创新实践
+          label: 活动
           opers:
             - name: practice
               label: 创新实践
