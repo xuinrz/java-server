@@ -663,6 +663,8 @@ public class TeachController {
             }
         }
         if (sc == null) {
+            Boolean isChosen=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+            if(isChosen) return CommonMethod.getReturnMessageError("请勿重复提交");
             sc = new Score();   //不存在 创建实体对象
             id = getNewScoreId(); //获取鑫的主键，这个是线程同步问题;
             sc.setId(id);  //设置新的id
