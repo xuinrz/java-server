@@ -315,7 +315,7 @@ uims:
     - name: score
       type: table
       title: 成绩管理
-      showAdd: 1
+      showAdd: 0
       item:
         - type: text
           prop: studentNum
