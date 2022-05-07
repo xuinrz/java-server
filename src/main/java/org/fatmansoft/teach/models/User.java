@@ -13,7 +13,7 @@ import java.util.Date;
         })
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userId;
 
     @ManyToOne()
@@ -42,6 +42,11 @@ public class User {
     public User(String username, String password) {
         this.userName = username;
         this.password = password;
+    }
+    public User(String username, String password,Integer userId) {
+        this.userName = username;
+        this.password = password;
+        this.userId = userId;
     }
 
     public Integer getUserId() {

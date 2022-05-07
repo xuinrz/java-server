@@ -110,7 +110,7 @@ public class TeachController {
     //页面初始化方法
     //Table界面初始是请求列表的数据，这里缺省查出所有学生的信息，传递字符“”给方法getStudentMapList，返回所有学生数据，
     @PostMapping("/studentInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentInit(@Valid @RequestBody DataRequest dataRequest) {
         List dataList = getStudentMapList("");
         return CommonMethod.getReturnData(dataList);  //按照测试框架规范会送Map的list
@@ -119,7 +119,7 @@ public class TeachController {
     //student页面点击查询按钮请求
     //Table界面初始是请求列表的数据，从请求对象里获得前端界面输入的字符串，作为参数传递给方法getStudentMapList，返回所有学生数据，
     @PostMapping("/studentQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName = dataRequest.getString("numName");
         List dataList = getStudentMapList(numName);
@@ -131,7 +131,7 @@ public class TeachController {
     //获得对应学生的id， 根据id从数据库中查出数据，存在Map对象里，并返回前端，如果是添加， 则前端没有id传回，Map 对象数据为空（界面上的数据也为空白）
 
     @PostMapping("/studentEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         Student s = null;
@@ -325,7 +325,7 @@ public class TeachController {
     //  学生个人简历页面
     //在系统在主界面内点击个人简历，后台准备个人简历所需要的各类数据组成的段落数据，在前端显示
     @PostMapping("/getStudentIntroduceData")
-    @PreAuthorize(" hasRole('ADMIN')")
+//    @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse getStudentIntroduceData(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
         if(studentId!=null)id=studentId;

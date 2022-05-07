@@ -85,7 +85,11 @@ public class AuthController {
                 userDetails.getUsername(),
                 roles.get(0)));
     }
-
+    public synchronized Integer getNewUserId() {
+        Integer id = userRepository.getMaxId() + 1;
+        System.out.println(id);
+        return id;
+    }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUserName(signUpRequest.getUsername())) {
@@ -96,7 +100,8 @@ public class AuthController {
 
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword()),getNewUserId());
+
 
         Set<String> strRoles = signUpRequest.getRole();
 

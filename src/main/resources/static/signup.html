@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background-color: #2c3e50;
+        }
+        #app {
+            height: 200px;
+            width: 255px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            font-size: larger;
+            color:white;
+        }
+        button{
+            --el-color-white: #fff;
+            --el-color-black: #000;
+            --el-color-primary: #409eff;
+            --el-color-primary-light-1: #53a8ff;
+            --el-color-primary-light-2: #66b1ff;
+            --el-color-primary-light-3: #79bbff;
+            --el-color-primary-light-4: #8cc5ff;
+            --el-color-primary-light-5: #a0cfff;
+            --el-color-primary-light-6: #b3d8ff;
+            --el-color-primary-light-7: #c6e2ff;
+            --el-color-primary-light-8: #d9ecff;
+            --el-color-primary-light-9: #ecf5ff;
+            --el-color-success: #67c23a;
+            --el-color-success-light: #e1f3d8;
+            --el-color-success-lighter: #f0f9eb;
+            --el-color-warning: #e6a23c;
+            --el-color-warning-light: #faecd8;
+            --el-color-warning-lighter: #fdf6ec;
+            --el-color-danger: #f56c6c;
+            --el-color-danger-light: #fde2e2;
+            --el-color-danger-lighter: #fef0f0;
+            --el-color-error: #f56c6c;
+            --el-color-error-light: #fde2e2;
+            --el-color-error-lighter: #fef0f0;
+            --el-color-info: #909399;
+            --el-color-info-light: #e9e9eb;
+            --el-color-info-lighter: #f4f4f5;
+            --el-text-color-primary: #303133;
+            --el-text-color-regular: #606266;
+            --el-text-color-secondary: #909399;
+            --el-text-color-placeholder: #c0c4cc;
+            --el-border-color-base: #dcdfe6;
+            --el-border-color-light: #e4e7ed;
+            --el-border-color-lighter: #ebeef5;
+            --el-border-color-extra-light: #f2f6fc;
+            --el-background-color-base: #f5f7fa;
+            --el-border-width-base: 1px;
+            --el-border-style-base: solid;
+            --el-border-color-hover: var(--el-text-color-placeholder);
+            --el-border-base: var(--el-border-width-base) var(--el-border-style-base) var(--el-border-color-base);
+            --el-border-radius-base: 4px;
+            --el-border-radius-small: 2px;
+            --el-border-radius-round: 20px;
+            --el-border-radius-circle: 100%;
+            --el-box-shadow-base: 0 2px 4px rgba(0,0,0,0.12),0 0 6px rgba(0,0,0,0.04);
+            --el-box-shadow-light: 0 2px 12px 0 rgba(0,0,0,0.1);
+            --el-svg-monochrome-grey: #dcdde0;
+            --el-fill-base: var(--el-color-white);
+            --el-font-size-extra-large: 20px;
+            --el-font-size-large: 18px;
+            --el-font-size-medium: 16px;
+            --el-font-size-base: 14px;
+            --el-font-size-small: 13px;
+            --el-font-size-extra-small: 12px;
+            --el-font-weight-primary: 500;
+            --el-font-line-height-primary: 24px;
+            --el-font-color-disabled-base: #bbb;
+            --el-index-normal: 1;
+            --el-index-top: 1000;
+            --el-index-popper: 2000;
+            --el-disabled-fill-base: var(--el-background-color-base);
+            --el-disabled-color-base: var(--el-text-color-placeholder);
+            --el-disabled-border-base: var(--el-border-color-light);
+            --el-transition-duration: 0.3s;
+            --el-transition-duration-fast: 0.2s;
+            --el-transition-function-ease-in-out-bezier: cubic-bezier(0.645,0.045,0.355,1);
+            --el-transition-function-fast-bezier: cubic-bezier(0.23,1,0.32,1);
+            --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
+            --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+            --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier),opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+            --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
+            --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+            --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+            --el-popup-modal-background-color: var(--el-color-black);
+            --el-popup-modal-opacity: 0.5;
+            --el-loading-spinner-size: 42px;
+            --el-loading-fullscreen-spinner-size: 50px;
+            -webkit-font-smoothing: antialiased;
+            --el-form-label-font-size: var(--el-font-size-base);
+            --el-button-font-weight: var(--el-font-weight-primary);
+            --el-button-disabled-font-color: var(--el-text-color-placeholder);
+            --el-button-disabled-background-color: var(--el-color-white);
+            --el-button-disabled-border-color: var(--el-border-color-light);
+            --el-button-divide-border-color: hsla(0,0%,100%,0.5);
+            display: inline-block;
+            line-height: 1;
+            min-height: 40px;
+            white-space: nowrap;
+            cursor: pointer;
+            background: var(--el-button-background-color,var(--el-color-white));
+            border: var(--el-border-base);
+            border-color: var(--el-button-border-color,var(--el-border-color-base));
+            color: var(--el-button-font-color,var(--el-text-color-regular));
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: 0;
+            margin: 0;
+            transition: .1s;
+            font-weight: var(--el-button-font-weight);
+            -webkit-user-select: none;
+            padding: 12px 20px;
+            font-size: var(--el-font-size-base,14px);
+            border-radius: var(--el-border-radius-base);
+            --el-button-font-color: #fff;
+            --el-button-background-color: #409eff;
+            --el-button-border-color: #409eff;
+            --el-button-hover-color: #66b1ff;
+            --el-button-active-font-color: #e6e6e6;
+            --el-button-active-background-color: #0d84ff;
+            --el-button-active-border-color: #0d84ff;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        input{
+            --el-color-white: #fff;
+            --el-color-black: #000;
+            --el-color-primary: #409eff;
+            --el-color-primary-light-1: #53a8ff;
+            --el-color-primary-light-2: #66b1ff;
+            --el-color-primary-light-3: #79bbff;
+            --el-color-primary-light-4: #8cc5ff;
+            --el-color-primary-light-5: #a0cfff;
+            --el-color-primary-light-6: #b3d8ff;
+            --el-color-primary-light-7: #c6e2ff;
+            --el-color-primary-light-8: #d9ecff;
+            --el-color-primary-light-9: #ecf5ff;
+            --el-color-success: #67c23a;
+            --el-color-success-light: #e1f3d8;
+            --el-color-success-lighter: #f0f9eb;
+            --el-color-warning: #e6a23c;
+            --el-color-warning-light: #faecd8;
+            --el-color-warning-lighter: #fdf6ec;
+            --el-color-danger: #f56c6c;
+            --el-color-danger-light: #fde2e2;
+            --el-color-danger-lighter: #fef0f0;
+            --el-color-error: #f56c6c;
+            --el-color-error-light: #fde2e2;
+            --el-color-error-lighter: #fef0f0;
+            --el-color-info: #909399;
+            --el-color-info-light: #e9e9eb;
+            --el-color-info-lighter: #f4f4f5;
+            --el-text-color-primary: #303133;
+            --el-text-color-regular: #606266;
+            --el-text-color-secondary: #909399;
+            --el-text-color-placeholder: #c0c4cc;
+            --el-border-color-base: #dcdfe6;
+            --el-border-color-light: #e4e7ed;
+            --el-border-color-lighter: #ebeef5;
+            --el-border-color-extra-light: #f2f6fc;
+            --el-background-color-base: #f5f7fa;
+            --el-border-width-base: 1px;
+            --el-border-style-base: solid;
+            --el-border-color-hover: var(--el-text-color-placeholder);
+            --el-border-base: var(--el-border-width-base) var(--el-border-style-base) var(--el-border-color-base);
+            --el-border-radius-base: 40px;
+            --el-border-radius-small: 20px;
+            --el-border-radius-round: 20px;
+            --el-border-radius-circle: 100%;
+            --el-box-shadow-base: 0 2px 4px rgba(0,0,0,0.12),0 0 6px rgba(0,0,0,0.04);
+            --el-box-shadow-light: 0 2px 12px 0 rgba(0,0,0,0.1);
+            --el-svg-monochrome-grey: #dcdde0;
+            --el-fill-base: var(--el-color-white);
+            --el-font-size-extra-large: 20px;
+            --el-font-size-large: 18px;
+            --el-font-size-medium: 16px;
+            --el-font-size-base: 14px;
+            --el-font-size-small: 13px;
+            --el-font-size-extra-small: 12px;
+            --el-font-weight-primary: 500;
+            --el-font-line-height-primary: 24px;
+            --el-font-color-disabled-base: #bbb;
+            --el-index-normal: 1;
+            --el-index-top: 1000;
+            --el-index-popper: 2000;
+            --el-disabled-fill-base: var(--el-background-color-base);
+            --el-disabled-color-base: var(--el-text-color-placeholder);
+            --el-disabled-border-base: var(--el-border-color-light);
+            --el-transition-duration: 0.3s;
+            --el-transition-duration-fast: 0.2s;
+            --el-transition-function-ease-in-out-bezier: cubic-bezier(0.645,0.045,0.355,1);
+            --el-transition-function-fast-bezier: cubic-bezier(0.23,1,0.32,1);
+            --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
+            --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+            --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier),opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+            --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
+            --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+            --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+            --el-popup-modal-background-color: var(--el-color-black);
+            --el-popup-modal-opacity: 0.5;
+            --el-loading-spinner-size: 42px;
+            --el-loading-fullscreen-spinner-size: 50px;
+            -webkit-font-smoothing: antialiased;
+            --el-form-label-font-size: var(--el-font-size-base);
+            --el-input-font-color: var(--el-text-color-regular);
+            --el-input-border: var(--el-border-base);
+            --el-input-border-color: var(--el-border-color-base);
+            --el-input-border-radius: 40px;
+            --el-input-background-color: var(--el-color-white);
+            --el-input-icon-color: var(--el-text-color-placeholder);
+            --el-input-placeholder-color: var(--el-text-color-placeholder);
+            --el-input-hover-border: var(--el-border-color-hover);
+            --el-input-clear-hover-color: var(--el-text-color-secondary);
+            --el-input-focus-border: var(--el-color-primary);
+            box-sizing: border-box;
+            display: inline-block;
+            font-size: inherit;
+            outline: 0;
+            transition: var(--el-transition-border);
+            width: 100%;
+            line-height: 30px;
+            background: transparent;
+            border: 1px darkslategray solid;
+            -webkit-appearance: none;
+            border-radius: 8px;
+            padding: 12px 5px 12px 15px;
+            height: 47px;
+            caret-color: #fff;
+            box-shadow: inset 0 0 0 1000px #283443!important;
+            -webkit-text-fill-color: #fff!important;
+        }
+    </style>
+</head>
+<body>
+<div id="app" style="margin: auto">
+    账号:&nbsp&nbsp<input v-model = "username" type="text" size="15" style="width: 200px;margin-bottom: 14px "/><br/>
+    密码:&nbsp&nbsp<input v-model = "password" type="password" size="15" style="width: 200px"/><br/><br/>
+
+
+
+    <button   @click="login" style="
+    height: 33px;
+    width: 80px;
+    margin:  0 20px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 10px;
+    padding: 0 16px;
+    font-size: large;">注册</button>
+
+
+
+
+    <button style="
+    height: 33px;
+    width: 110px;
+    margin:  0 0px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 10px;
+    padding: 0 0px;
+    font-size: large;">前往登录</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+
+  let vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        username: 'admin',
+        password: '123456',
+      }
+    },
+    methods: {
+
+        login: function(){
+
+            axios({
+                headers: {
+                     'content-type': 'application/json',
+                },
+                method: 'post',
+                url: '/api/auth/signup',
+                data: {
+                    username: this.username,
+                    password: this.password,
+
+                }
+            }).then(res => {
+                window.localStorage.accessToken=res.data.accessToken
+                console.log(window.localStorage.accessToken);
+                alert("注册成功！");
+            }).catch(error => {
+                console.log(error);
+                alert("用户名已存在，注册失败！");
+              });
+          },
+      }
+  })
+</script>
+</body>
+</html>
