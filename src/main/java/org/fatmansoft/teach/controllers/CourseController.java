@@ -68,7 +68,7 @@ public class CourseController {
     }
 
     @PostMapping("/courseInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseInit() {
         List dataList = getCourseMapList("");
         return CommonMethod.getReturnData(dataList);
@@ -93,7 +93,7 @@ public class CourseController {
     }
 
     @PostMapping("/courseEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         Course course = null;
@@ -215,7 +215,7 @@ public class CourseController {
     }
 
     @PostMapping("/courseQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName = dataRequest.getString("numName");
         String type = dataRequest.getString("type");

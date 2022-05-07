@@ -80,7 +80,7 @@ public class HomeworkController {
         return dataList;
     }
     @PostMapping("/homeworkInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse homeworkInit(@Valid @RequestBody DataRequest dataRequest) {
 
         Integer id = dataRequest.getInteger("courseId");
@@ -111,7 +111,7 @@ public class HomeworkController {
 
 
     @PostMapping("/homeworkEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse homeworkEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         Homework sc= null;

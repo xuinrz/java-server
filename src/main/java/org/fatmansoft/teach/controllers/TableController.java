@@ -52,7 +52,7 @@ public class TableController {
     }
 
     @PostMapping("/tableInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse tableInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer studenId = dataRequest.getInteger("studentId");
         if (studenId==null)studenId=0;

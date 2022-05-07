@@ -53,7 +53,7 @@ public class AttendInfController {
     }
 
     @PostMapping("/attendInfInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse attendInfInit(@Valid @RequestBody DataRequest dataRequest) {
 
         String courseName=dataRequest.getString("courseName");
@@ -66,7 +66,7 @@ public class AttendInfController {
     }
 
     @PostMapping("/attendInfQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse attendInfQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName = dataRequest.getString("numName");
         if (numName==null)numName="";
@@ -76,7 +76,7 @@ public class AttendInfController {
 
 
     @PostMapping("/attendInfEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse attendInfEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         AttendInf sc = null;

@@ -554,7 +554,7 @@ public class TeachController {
     }
 
     @PostMapping("/scoreInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse scoreInit(@Valid @RequestBody DataRequest dataRequest) {
         String studentId = dataRequest.getString("studentNum");
         String courseName = dataRequest.getString("courseName");
@@ -586,7 +586,7 @@ public class TeachController {
 
 
     @PostMapping("/scoreEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse scoreEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         Score sc = null;
@@ -673,7 +673,7 @@ public class TeachController {
         if(isChosen) {
         if (mark == null) return CommonMethod.getReturnMessageError("未输入成绩");
         sc.setMark(mark);
-        double gradePoint = sc.getMark() > 50 ? (sc.getMark() - 50) / 10.00 : 0;
+        double gradePoint = sc.getMark() >= 60 ? (sc.getMark() - 50) / 10.00 : 0;
         sc.setGradePoint(gradePoint);
         scoreRepository.save(sc);}  //新建和修改都调用save方法
         else return CommonMethod.getReturnMessageError("该学生未选择该科目");
@@ -719,7 +719,7 @@ public class TeachController {
     }
 
     @PostMapping("/scoreQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse scoreQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName = dataRequest.getString("numName");
         String courseName = dataRequest.getString("courseName");

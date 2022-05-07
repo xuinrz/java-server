@@ -55,7 +55,7 @@ public class LogController
         return dataList;
     }
     @PostMapping("/logInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse logInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
         if (studentId==null)
@@ -96,7 +96,7 @@ public class LogController
     }
 
     @PostMapping("/logQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse logQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName= dataRequest.getString("numName");
         String type = dataRequest.getString("category");
@@ -133,7 +133,7 @@ public class LogController
 
 
     @PostMapping("/logEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse logEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");//id
         Log sc= null;//Score 变量

@@ -61,7 +61,7 @@ public class CourseManagementController {
         return dataList;
     }
     @PostMapping("/courseManagementInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseManagementInit(@Valid @RequestBody DataRequest dataRequest) {
         String studentNum = dataRequest.getString("studentNum");
         String courseName = dataRequest.getString("courseName");
@@ -97,7 +97,7 @@ public class CourseManagementController {
     }
 
     @PostMapping("/courseManagementQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseManagementQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName= dataRequest.getString("numName");
         String type = dataRequest.getString("courseName");
@@ -134,7 +134,7 @@ public class CourseManagementController {
 
 
     @PostMapping("/courseManagementEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseManagementEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         Score cm = null;

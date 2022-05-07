@@ -23,7 +23,7 @@ public class StuInfController {
     @Autowired
     private StuInfRepository stuInfRepository;
     @PostMapping("/stuInfInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse stuInfInit(@Valid @RequestBody DataRequest dataRequest){
         String name=dataRequest.getString("stuName");
         List<Score> scoreList=stuInfRepository.findScoreByStudentName(name);

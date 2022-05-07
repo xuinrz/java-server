@@ -62,7 +62,7 @@ public class PracticeController {
     }
 
     @PostMapping("/practiceInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse practiceInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
         if (studentId==null)studentId=0;
@@ -89,7 +89,7 @@ public class PracticeController {
     }
 
     @PostMapping("/practiceEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse practiceEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         Practice practice = null;
@@ -217,7 +217,7 @@ public class PracticeController {
     }
 
     @PostMapping("/practiceQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse practiceQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName = dataRequest.getString("numName");
         String type = dataRequest.getString("type");

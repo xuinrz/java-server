@@ -49,7 +49,7 @@ public class CourseCenterController {
         return dataList;
     }
     @PostMapping("/courseCenterInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseCenterInit(@Valid @RequestBody DataRequest dataRequest){
         String courseName=dataRequest.getString("courseName");
         if(courseName==null){
@@ -60,7 +60,7 @@ public class CourseCenterController {
         return CommonMethod.getReturnData(dataList);
     }
     @PostMapping("/courseCenterQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseCenterQuery(@Valid @RequestBody DataRequest dataRequest){
         String numName=dataRequest.getString("numName");
         if (numName==null)numName="";
@@ -70,7 +70,7 @@ public class CourseCenterController {
 
 
     @PostMapping("/courseCenterEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseCenterEditInit(@Valid @RequestBody DataRequest dataRequest){
         Integer id=dataRequest.getInteger("id");
         CourseCenter courseCenter=null;

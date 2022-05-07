@@ -58,7 +58,7 @@ public class HonorController {
     }
 
     @PostMapping("/honorInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse honorInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
         if (studentId==null)studentId=0;
@@ -85,7 +85,7 @@ public class HonorController {
     }
 
     @PostMapping("/honorEditInit")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse honorEditInit(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         Honor honor= null;
@@ -202,7 +202,7 @@ public class HonorController {
     }
 
     @PostMapping("/honorQuery")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public DataResponse honorQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName= dataRequest.getString("numName");
         String level = dataRequest.getString("level");
