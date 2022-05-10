@@ -131,7 +131,7 @@ public class DailyController {
             form.put("studentId",s.getStudent().getId());
             form.put("activity",s.getActivity());  //这里不需要转换
             form.put("activityName",s.getActivityName());
-            form.put("activityDate", DateTimeTool.parseDateTime(s.getActivityDate(),"")); //这里需要转换为字符串
+            form.put("activityDate", DateTimeTool.parseDateTime(s.getActivityDate(),"yyyy-mm-dd")); //这里需要转换为字符串
         }
         form.put("studentIdList",studentIdList);
         return CommonMethod.getReturnData(form); //这里回传包含学生信息的Map对象
