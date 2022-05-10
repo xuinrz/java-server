@@ -6,6 +6,7 @@ import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.AttendInfRepository;
 import org.fatmansoft.teach.repository.CourseRepository;
+import org.fatmansoft.teach.repository.ScoreRepository;
 import org.fatmansoft.teach.repository.StudentRepository;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ import java.util.*;
 public class AttendInfController {
     @Autowired
     private AttendInfRepository attendInfRepository;
-
+    @Autowired
+    private ScoreRepository scoreRepository;
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
@@ -102,7 +104,7 @@ public class AttendInfController {
         }
         List courseIdList = new ArrayList();
         List<Course> cList = courseRepository.findAll();
-        for (i = 0; i < sList.size(); i++) {
+        for (i = 0; i < cList.size(); i++) {
             c = cList.get(i);
             m = new HashMap();
             m.put("label", c.getCourseName());
@@ -152,10 +154,14 @@ public class AttendInfController {
             }
         }
         if (sc == null) {
+            Boolean isChosen=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+            if(!isChosen) return CommonMethod.getReturnMessageError("该学生未选择该课程");
             sc = new AttendInf();   //不存在 创建实体对象
             id = getNewAttendInfId(); //获取鑫的主键，这个是线程同步问题;
             sc.setId(id);  //设置新的id
         }
+        Boolean isChosen=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+        if(!isChosen) return CommonMethod.getReturnMessageError("该学生未选择该课程");
         sc.setStudent(studentRepository.findById(studentId).get());  //设置属性
         sc.setCourse(courseRepository.findById(courseId).get());
         sc.setReason(reason);

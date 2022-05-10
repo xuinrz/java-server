@@ -44,7 +44,7 @@ public class HomeworkController {
     @Autowired
     private HomeworkRepository homeworkRepository;
     @Autowired
-    private IntroduceService introduceService;
+    private ScoreRepository scoreRepository;
     @Autowired
     private ResourceLoader resourceLoader;
     private FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
@@ -186,10 +186,14 @@ public class HomeworkController {
             }
         }
         if(sc == null) {
+            Boolean isChosen=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+            if(!isChosen) return CommonMethod.getReturnMessageError("该学生未选择该课程");
             sc = new Homework();   //不存在 创建实体对象
-            id = getNewHomeworkId(); //获取鑫的主键，这个是线程同步问题;
+            id = getNewHomeworkId(); //获取新的主键，这个是线程同步问题;
             sc.setId(id);  //设置新的id
         }
+        Boolean isChosen=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
+        if(!isChosen) return CommonMethod.getReturnMessageError("该学生未选择该课程");
         sc.setStudent(studentRepository.findById(studentId).get());  //设置属性
         sc.setCourse(courseRepository.findById(courseId).get());
         sc.setSubmission(submission);

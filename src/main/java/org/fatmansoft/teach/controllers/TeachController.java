@@ -364,6 +364,7 @@ public class TeachController {
     @PostMapping("/getStudentIntroducePdf")
     public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
+        if(studentId!=null)id=studentId;
         Map data = introduceService.getIntroduceDataMap2(studentId);
 //        String content = (String)data.get("html");
 //        System.out.println(content.substring(1,10));
