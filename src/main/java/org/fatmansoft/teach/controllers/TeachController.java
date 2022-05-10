@@ -280,7 +280,7 @@ public class TeachController {
 
             if (studentRepository.findByStudentNum(studentNum)!=null)
                 return CommonMethod.getReturnMessageError("该学号已存在，无法添加");
-            String pattern = "^20(1[6-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])\\d{2}[1-9]";//匹配前四位为2016~2099，后三位为001-999的学号。
+            String pattern = "^20(1[6-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])\\d{3}";//匹配前四位为2016~2099，后三位为001-999的学号。
             if (!Pattern.matches(pattern,studentNum))
                 return CommonMethod.getReturnMessageError("学号格式不正确，请重新输入");
         }
