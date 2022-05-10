@@ -675,6 +675,7 @@ public class TeachController {
         Boolean isChosen=(scoreRepository.isCourseManagementExist(studentId,courseId).size()!=0);
         if(isChosen) {
         if (mark == null) return CommonMethod.getReturnMessageError("未输入成绩");
+        if (mark>100||mark<0) return CommonMethod.getReturnMessageError("成绩格式错误");
         sc.setMark(mark);
         double gradePoint = sc.getMark() >= 60 ? (sc.getMark() - 50) / 10.00 : 0;
         sc.setGradePoint(gradePoint);
